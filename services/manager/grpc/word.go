@@ -2,7 +2,6 @@ package grpc
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Amakuchisan/tsuginiyomu/services/manager/manager"
 	// "github.com/Amakuchisan/tsuginiyomu/services/manager/domain"
@@ -16,8 +15,6 @@ import (
 // GetWord は新規単語の検索を行い, 結果を返す
 func (s *Server) GetWord(ctx context.Context, in *pb.GetWordRequest) (*pb.GetWordReply, error) {
 	wordCount, err := s.manager.GetWord(ctx, in.HatenaID)
-	fmt.Println(wordCount)
-	fmt.Printf("%T\n", wordCount)
 	// word, err := s.manager.GetWord(ctx, in.HatenaID)
 	if err != nil {
 		if err == manager.ErrInvalidArgument {
@@ -26,5 +23,4 @@ func (s *Server) GetWord(ctx context.Context, in *pb.GetWordRequest) (*pb.GetWor
 		return nil, err
 	}
 	return &pb.GetWordReply{WordCount: wordCount}, nil
-	// return &pb.GetWordReply{WordCount: wordCount}, nil
 }
