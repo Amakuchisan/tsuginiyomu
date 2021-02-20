@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package learner;
+
+service Learner {
+  rpc Learn (LearnRequest) returns (LearnReply) {}
+}
+
+message LearnRequest {
+  string hatena_id = 1;
+}
+
+message LearnReply {
+  bool learned = 1;
+}

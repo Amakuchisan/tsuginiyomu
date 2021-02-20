@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # evaluator:
+  #   container_name: ty-learner-container
+  #   tty: true
+  #   stdin_open: true
+  #   environment:
+  #     TZ: Japan
+  #   build:
+  #     context: services/evaluator/
+  #   ports:
+  #     - "50050:50050"
+  #   depends_on:
+  #     - manager
+
+  manager:
+    container_name: ty-manager-container
+    tty: true
+    stdin_open: true
+    environment:
+      TZ: Japan
+      DATABASE_DSN: ty:ty@tcp(db)/ty
+    build:
+      context: services/manager/
+    ports:
+      - "50051:50051"
+    depends_on:
+      - db
+
+  db:
+    container_name: ty-mysql-container
+    image: mysql:8.0.20
+    command: mysqld --character-set-server=utf8 --default_authentication_plugin=mysql_native_password --init-connect='SET NAMES utf8mb4'
+    environment:
+      MYSQL_ROOT_PASSWORD: ty
+      MYSQL_USER: ty
+      MYSQL_PASSWORD: ty
+      MYSQL_DATABASE: ty
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10 
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d

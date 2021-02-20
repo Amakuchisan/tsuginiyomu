@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/Amakuchisan/tsuginiyomu/pb/go/evaluator";
+
+package evaluator;
+
+service Evaluator {
+  rpc getWord (GetWordRequest) returns (GetWordReply) {}
+}
+
+message GetWordRequest {
+  string hatena_id = 1;
+}
+
+message GetWordReply {
+  map<string, uint32> message = 1;
+}

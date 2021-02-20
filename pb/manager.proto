@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+option go_package = "github.com/Amakuchisan/tsuginiyomu/pb/go/manager";
+
+package manager;
+
+// The manager service definition.
+service Manager {
+  // Sends a Word
+  rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
+  rpc CreateWord (CreateWordRequest) returns (CreateWordReply) {}
+  rpc UpdateWordcloud (UpdateWordcloudRequest) returns (UpdateWordcloudReply) {}
+  rpc GetArticle (GetArticleRequest) returns (GetArticleReply) {}
+  rpc GetWord (GetWordRequest) returns (GetWordReply) {}
+}
+
+// The request message.
+message GetArticleRequest {
+}
+
+// The response message containing the article's url
+message GetArticleReply {
+  repeated string url = 1;
+}
+
+// The request message containing the user's hatenaID.
+message GetWordRequest {
+  string hatenaID = 1;
+}
+
+// The response message containing the {word.name: word.count}
+message GetWordReply {
+  map<string, uint32> wordCount = 1;
+}
+
+// The request message containing the user's hatenaID, wordcloud.
+message UpdateWordcloudRequest {
+  string hatenaID = 1;
+  bytes wordcloud = 2;
+}
+
+// The response message containing the {word: count}
+message UpdateWordcloudReply {
+  string hatenaID = 1;
+  bytes wordcloud = 2;
+}
+
+// The request message containing the user's hatenaID.
+message CreateUserRequest {
+  string hatenaID = 1;
+}
+
+// The response message containing the {word: count}
+message CreateUserReply {
+  string hatenaID = 1;
+  bytes wordCloud = 2;
+}
+
+message Article {
+  string url = 1;
+  map<string, uint32> noun = 2;
+}
+
+// The request message containing the user's hatenaID.
+message CreateWordRequest {
+  string hatenaID = 1;
+  Article article = 2;
+//  map<>;
+}
+/*
+
+
+{url:
+    (word, count)
+    (word, count)
+    (word, count)}
+
+*/
+
+// The response message containing the {word: count}
+message CreateWordReply {
+  bool created = 1;
+}

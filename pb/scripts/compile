@@ -1,0 +1,56 @@
+#!/bin/bash
+
+set -eux
+
+cd /home/amuamu/go/src/github.com/Amakuchisan/tsuginiyomu/pb/
+
+docker build protoc-go -t tsuginiyomu-protoc-go
+docker build protoc-python -t tsuginiyomu-protoc-python
+
+mkdir -p go/manager
+
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-go \
+  protoc \
+    --go_out=plugins=grpc:go/manager \
+    --go_opt=paths=source_relative \
+    manager.proto
+
+mkdir -p go/evaluator
+
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-go \
+  protoc \
+    --go_out=plugins=grpc:go/evaluator \
+    --go_opt=paths=source_relative \
+    evaluator.proto
+
+mkdir -p python/learner
+mkdir -p python/manager
+
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-python \
+  python -m grpc_tools.protoc -I. \
+    --python_out=python/learner \
+    --grpc_python_out=python/learner \
+    learner.proto
+
+sed -i -e "s/import learner_pb2 as learner__pb2/from . import learner_pb2 as learner__pb2/g" python/learner/learner_pb2_grpc.py
+
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-python \
+  python -m grpc_tools.protoc -I. \
+    --python_out=python/manager \
+    --grpc_python_out=python/manager \
+    manager.proto
+
+sed -i -e "s/import manager_pb2 as manager__pb2/from . import manager_pb2 as manager__pb2/g" python/manager/manager_pb2_grpc.py
+
+mkdir -p ../services/manager/pb
+mkdir -p ../services/learner/pb
+mkdir -p ../services/evaluator/pb
+cp -r ./go/manager ../services/evaluator/pb
+cp -r ./go/evaluator ../services/evaluator/pb
+cp -r ./go/manager ../services/manager/pb
+cp -r ./python/learner ../services/learner/pb
+cp -r ./python/manager ../services/learner/pb
+
+# protoc evaluator.proto --go_out=plugins=grpc:go/evaluator --go_opt=paths=source_relative
+# protoc manager.proto --go_out=plugins=grpc:go/manager --go_opt=paths=source_relative
+
