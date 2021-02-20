@@ -14,7 +14,7 @@ func (s *Server) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.
 	user, err := s.manager.CreateUser(ctx, in.HatenaID)
 	if err != nil {
 		if err == manager.ErrAlreadyRegistered {
-			return &pb.CreateUserReply{HatenaID: user.HatenaID, WordCloud: nil}, nil
+			return &pb.CreateUserReply{HatenaID: user.HatenaID, WordCloud: user.Wordcloud}, nil
 		}
 		if err == manager.ErrInvalidArgument {
 			return nil, status.Error(codes.InvalidArgument, "invalid argument")
