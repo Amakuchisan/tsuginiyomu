@@ -4,10 +4,7 @@ import (
 	"context"
 
 	"github.com/Amakuchisan/tsuginiyomu/services/manager/manager"
-	// "github.com/Amakuchisan/tsuginiyomu/services/manager/domain"
 	pb "github.com/Amakuchisan/tsuginiyomu/services/manager/pb/manager"
-	// "github.com/lestrrat-go/jwx/jwa"
-	// "github.com/lestrrat-go/jwx/jwt"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
