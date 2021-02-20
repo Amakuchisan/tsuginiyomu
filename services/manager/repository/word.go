@@ -68,7 +68,7 @@ func (r *WordRepository) FindByHatenaID(ctx context.Context, hatenaID string) ([
 		r.db,
 		&wordCount,
 		`
-		SELECT word.name, SUM(word_count) as word_count FROM user
+		SELECT word.name, SUM(word_count) FROM user
 			JOIN user_article ON user.id=user_article.user_id
 			JOIN article ON user_article.article_id=article.id
 			JOIN article_word ON article.id=article_word.article_id

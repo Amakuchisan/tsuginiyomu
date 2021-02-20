@@ -21,7 +21,7 @@ type Word struct {
 // 単語返却時の形
 type WordCount struct {
 	Name  string `db:"name"`
-	Count uint32 `db:"word_count"`
+	Count uint32 `db:"SUM(word_count)"`
 }
 
 // CreateWordInput は単語作成時の入力
