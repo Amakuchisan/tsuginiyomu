@@ -68,15 +68,16 @@ func (r *WordRepository) FindByHatenaID(ctx context.Context, hatenaID string) ([
 		r.db,
 		&wordCount,
 		`
-		SELECT word.name, word_count FROM user
+		SELECT word.name, SUM(word_count) as word_count FROM user
 			JOIN user_article ON user.id=user_article.user_id
 			JOIN article ON user_article.article_id=article.id
 			JOIN article_word ON article.id=article_word.article_id
 			JOIN word ON article_word.word_id=word.id
-			WHERE hatena_id = BINARY ?
+			WHERE hatena_id = BINARY ? GROUP BY word.name
 		`,
 		hatenaID,
 	)
+
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, domain.ErrNotFound
