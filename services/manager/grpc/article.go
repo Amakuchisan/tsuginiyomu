@@ -43,6 +43,15 @@ func (s *Server) CreateArticle(ctx context.Context, in *pb.CreateArticleRequest)
 			}
 		}
 	}
+
+	for _, url := range URLNotHaveWord {
+		_, err = s.manager.CreateUserArticle(ctx, user.ID, url)
+		if err != nil {
+			if err != manager.ErrAlreadyRegistered {
+				return &pb.CreateArticleReply{NewCreatedUrl: newCreatedURL}, err
+			}
+		}
+	}
 	return &pb.CreateArticleReply{NewCreatedUrl: append(newCreatedURL, URLNotHaveWord...)}, nil
 }
 
