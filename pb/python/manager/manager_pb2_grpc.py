@@ -30,10 +30,10 @@ class ManagerStub(object):
                 request_serializer=manager__pb2.UpdateWordcloudRequest.SerializeToString,
                 response_deserializer=manager__pb2.UpdateWordcloudReply.FromString,
                 )
-        self.GetArticle = channel.unary_unary(
-                '/manager.Manager/GetArticle',
-                request_serializer=manager__pb2.GetArticleRequest.SerializeToString,
-                response_deserializer=manager__pb2.GetArticleReply.FromString,
+        self.CreateArticle = channel.unary_unary(
+                '/manager.Manager/CreateArticle',
+                request_serializer=manager__pb2.CreateArticleRequest.SerializeToString,
+                response_deserializer=manager__pb2.CreateArticleReply.FromString,
                 )
         self.GetWord = channel.unary_unary(
                 '/manager.Manager/GetWord',
@@ -65,7 +65,7 @@ class ManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetArticle(self, request, context):
+    def CreateArticle(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -95,10 +95,10 @@ def add_ManagerServicer_to_server(servicer, server):
                     request_deserializer=manager__pb2.UpdateWordcloudRequest.FromString,
                     response_serializer=manager__pb2.UpdateWordcloudReply.SerializeToString,
             ),
-            'GetArticle': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetArticle,
-                    request_deserializer=manager__pb2.GetArticleRequest.FromString,
-                    response_serializer=manager__pb2.GetArticleReply.SerializeToString,
+            'CreateArticle': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateArticle,
+                    request_deserializer=manager__pb2.CreateArticleRequest.FromString,
+                    response_serializer=manager__pb2.CreateArticleReply.SerializeToString,
             ),
             'GetWord': grpc.unary_unary_rpc_method_handler(
                     servicer.GetWord,
@@ -168,7 +168,7 @@ class Manager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetArticle(request,
+    def CreateArticle(request,
             target,
             options=(),
             channel_credentials=None,
@@ -178,9 +178,9 @@ class Manager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/manager.Manager/GetArticle',
-            manager__pb2.GetArticleRequest.SerializeToString,
-            manager__pb2.GetArticleReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/manager.Manager/CreateArticle',
+            manager__pb2.CreateArticleRequest.SerializeToString,
+            manager__pb2.CreateArticleReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

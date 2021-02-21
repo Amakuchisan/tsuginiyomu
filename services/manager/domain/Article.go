@@ -27,12 +27,12 @@ type ArticleRepository interface {
 // CreateArticle は新規記事を作成する
 func CreateArticle(url string) func(ctx context.Context, r Repository) (*Article, error) {
 	return func(ctx context.Context, r Repository) (*Article, error) {
-		_, err := r.Article().FindByURL(ctx, url)
+		article, err := r.Article().FindByURL(ctx, url)
 		if err != ErrNotFound {
 			if err != nil {
 				return nil, err
 			}
-			return nil, ErrAlreadyExists
+			return article, ErrAlreadyExists
 		}
 		if err != nil {
 			return nil, err

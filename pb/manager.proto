@@ -10,17 +10,18 @@ service Manager {
   rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
   rpc CreateWord (CreateWordRequest) returns (CreateWordReply) {}
   rpc UpdateWordcloud (UpdateWordcloudRequest) returns (UpdateWordcloudReply) {}
-  rpc GetArticle (GetArticleRequest) returns (GetArticleReply) {}
+  rpc CreateArticle (CreateArticleRequest) returns (CreateArticleReply) {}
   rpc GetWord (GetWordRequest) returns (GetWordReply) {}
 }
 
 // The request message.
-message GetArticleRequest {
+message CreateArticleRequest {
+  string url = 1;
 }
 
 // The response message containing the article's url
-message GetArticleReply {
-  repeated string url = 1;
+message CreateArticleReply {
+  string url = 1;
 }
 
 // The request message containing the user's hatenaID.
