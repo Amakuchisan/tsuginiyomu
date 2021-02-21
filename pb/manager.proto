@@ -9,19 +9,19 @@ service Manager {
   // Sends a Word
   rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
   rpc CreateWord (CreateWordRequest) returns (CreateWordReply) {}
-  rpc UpdateWordcloud (UpdateWordcloudRequest) returns (UpdateWordcloudReply) {}
   rpc CreateArticle (CreateArticleRequest) returns (CreateArticleReply) {}
+  rpc UpdateWordcloud (UpdateWordcloudRequest) returns (UpdateWordcloudReply) {}
   rpc GetWord (GetWordRequest) returns (GetWordReply) {}
 }
 
 // The request message.
 message CreateArticleRequest {
-  string url = 1;
+  repeated string url = 1;
 }
 
 // The response message containing the article's url
 message CreateArticleReply {
-  string url = 1;
+  repeated string new_created_url = 1; // 新規に作成されたURL
 }
 
 // The request message containing the user's hatenaID.

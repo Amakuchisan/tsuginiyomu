@@ -45,7 +45,7 @@ func (r *ArticleRepository) FindByURL(ctx context.Context, url string) (*domain.
 		r.db,
 		&article,
 		`
-			SELECT id FROM article
+			SELECT id, url FROM article
 				WHERE url = BINARY ? LIMIT 1
 		`,
 		url,

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z0github.com/Amakuchisan/tsuginiyomu/pb/go/manager',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rmanager.proto\x12\x07manager\"#\n\x14\x43reateArticleRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\"!\n\x12\x43reateArticleReply\x12\x0b\n\x03url\x18\x01 \x01(\t\"\"\n\x0eGetWordRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\"y\n\x0cGetWordReply\x12\x37\n\twordCount\x18\x01 \x03(\x0b\x32$.manager.GetWordReply.WordCountEntry\x1a\x30\n\x0eWordCountEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"=\n\x16UpdateWordcloudRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12\x11\n\twordcloud\x18\x02 \x01(\x0c\";\n\x14UpdateWordcloudReply\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12\x11\n\twordcloud\x18\x02 \x01(\x0c\"%\n\x11\x43reateUserRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\"6\n\x0f\x43reateUserReply\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12\x11\n\twordCloud\x18\x02 \x01(\x0c\"m\n\x07\x41rticle\x12\x0b\n\x03url\x18\x01 \x01(\t\x12(\n\x04noun\x18\x02 \x03(\x0b\x32\x1a.manager.Article.NounEntry\x1a+\n\tNounEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"H\n\x11\x43reateWordRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12!\n\x07\x61rticle\x18\x02 \x01(\x0b\x32\x10.manager.Article\"\"\n\x0f\x43reateWordReply\x12\x0f\n\x07\x63reated\x18\x01 \x01(\x08\x32\xf6\x02\n\x07Manager\x12\x44\n\nCreateUser\x12\x1a.manager.CreateUserRequest\x1a\x18.manager.CreateUserReply\"\x00\x12\x44\n\nCreateWord\x12\x1a.manager.CreateWordRequest\x1a\x18.manager.CreateWordReply\"\x00\x12S\n\x0fUpdateWordcloud\x12\x1f.manager.UpdateWordcloudRequest\x1a\x1d.manager.UpdateWordcloudReply\"\x00\x12M\n\rCreateArticle\x12\x1d.manager.CreateArticleRequest\x1a\x1b.manager.CreateArticleReply\"\x00\x12;\n\x07GetWord\x12\x17.manager.GetWordRequest\x1a\x15.manager.GetWordReply\"\x00\x42\x32Z0github.com/Amakuchisan/tsuginiyomu/pb/go/managerb\x06proto3'
+  serialized_pb=b'\n\rmanager.proto\x12\x07manager\"#\n\x14\x43reateArticleRequest\x12\x0b\n\x03url\x18\x01 \x03(\t\"-\n\x12\x43reateArticleReply\x12\x17\n\x0fnew_created_url\x18\x01 \x03(\t\"\"\n\x0eGetWordRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\"y\n\x0cGetWordReply\x12\x37\n\twordCount\x18\x01 \x03(\x0b\x32$.manager.GetWordReply.WordCountEntry\x1a\x30\n\x0eWordCountEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"=\n\x16UpdateWordcloudRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12\x11\n\twordcloud\x18\x02 \x01(\x0c\";\n\x14UpdateWordcloudReply\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12\x11\n\twordcloud\x18\x02 \x01(\x0c\"%\n\x11\x43reateUserRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\"6\n\x0f\x43reateUserReply\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12\x11\n\twordCloud\x18\x02 \x01(\x0c\"m\n\x07\x41rticle\x12\x0b\n\x03url\x18\x01 \x01(\t\x12(\n\x04noun\x18\x02 \x03(\x0b\x32\x1a.manager.Article.NounEntry\x1a+\n\tNounEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"H\n\x11\x43reateWordRequest\x12\x10\n\x08hatenaID\x18\x01 \x01(\t\x12!\n\x07\x61rticle\x18\x02 \x01(\x0b\x32\x10.manager.Article\"\"\n\x0f\x43reateWordReply\x12\x0f\n\x07\x63reated\x18\x01 \x01(\x08\x32\xf6\x02\n\x07Manager\x12\x44\n\nCreateUser\x12\x1a.manager.CreateUserRequest\x1a\x18.manager.CreateUserReply\"\x00\x12\x44\n\nCreateWord\x12\x1a.manager.CreateWordRequest\x1a\x18.manager.CreateWordReply\"\x00\x12M\n\rCreateArticle\x12\x1d.manager.CreateArticleRequest\x1a\x1b.manager.CreateArticleReply\"\x00\x12S\n\x0fUpdateWordcloud\x12\x1f.manager.UpdateWordcloudRequest\x1a\x1d.manager.UpdateWordcloudReply\"\x00\x12;\n\x07GetWord\x12\x17.manager.GetWordRequest\x1a\x15.manager.GetWordReply\"\x00\x42\x32Z0github.com/Amakuchisan/tsuginiyomu/pb/go/managerb\x06proto3'
 )
 
 
@@ -35,8 +35,8 @@ _CREATEARTICLEREQUEST = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='url', full_name='manager.CreateArticleRequest.url', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -66,9 +66,9 @@ _CREATEARTICLEREPLY = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='url', full_name='manager.CreateArticleReply.url', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='new_created_url', full_name='manager.CreateArticleReply.new_created_url', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -85,7 +85,7 @@ _CREATEARTICLEREPLY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=63,
-  serialized_end=96,
+  serialized_end=108,
 )
 
 
@@ -116,8 +116,8 @@ _GETWORDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=98,
-  serialized_end=132,
+  serialized_start=110,
+  serialized_end=144,
 )
 
 
@@ -155,8 +155,8 @@ _GETWORDREPLY_WORDCOUNTENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=207,
-  serialized_end=255,
+  serialized_start=219,
+  serialized_end=267,
 )
 
 _GETWORDREPLY = _descriptor.Descriptor(
@@ -186,8 +186,8 @@ _GETWORDREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=134,
-  serialized_end=255,
+  serialized_start=146,
+  serialized_end=267,
 )
 
 
@@ -225,8 +225,8 @@ _UPDATEWORDCLOUDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=257,
-  serialized_end=318,
+  serialized_start=269,
+  serialized_end=330,
 )
 
 
@@ -264,8 +264,8 @@ _UPDATEWORDCLOUDREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=320,
-  serialized_end=379,
+  serialized_start=332,
+  serialized_end=391,
 )
 
 
@@ -296,8 +296,8 @@ _CREATEUSERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=381,
-  serialized_end=418,
+  serialized_start=393,
+  serialized_end=430,
 )
 
 
@@ -335,8 +335,8 @@ _CREATEUSERREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=420,
-  serialized_end=474,
+  serialized_start=432,
+  serialized_end=486,
 )
 
 
@@ -374,8 +374,8 @@ _ARTICLE_NOUNENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=542,
-  serialized_end=585,
+  serialized_start=554,
+  serialized_end=597,
 )
 
 _ARTICLE = _descriptor.Descriptor(
@@ -412,8 +412,8 @@ _ARTICLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=476,
-  serialized_end=585,
+  serialized_start=488,
+  serialized_end=597,
 )
 
 
@@ -451,8 +451,8 @@ _CREATEWORDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=587,
-  serialized_end=659,
+  serialized_start=599,
+  serialized_end=671,
 )
 
 
@@ -483,8 +483,8 @@ _CREATEWORDREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=661,
-  serialized_end=695,
+  serialized_start=673,
+  serialized_end=707,
 )
 
 _GETWORDREPLY_WORDCOUNTENTRY.containing_type = _GETWORDREPLY
@@ -610,8 +610,8 @@ _MANAGER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=698,
-  serialized_end=1072,
+  serialized_start=710,
+  serialized_end=1084,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateUser',
@@ -634,22 +634,22 @@ _MANAGER = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='UpdateWordcloud',
-    full_name='manager.Manager.UpdateWordcloud',
+    name='CreateArticle',
+    full_name='manager.Manager.CreateArticle',
     index=2,
     containing_service=None,
-    input_type=_UPDATEWORDCLOUDREQUEST,
-    output_type=_UPDATEWORDCLOUDREPLY,
+    input_type=_CREATEARTICLEREQUEST,
+    output_type=_CREATEARTICLEREPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='CreateArticle',
-    full_name='manager.Manager.CreateArticle',
+    name='UpdateWordcloud',
+    full_name='manager.Manager.UpdateWordcloud',
     index=3,
     containing_service=None,
-    input_type=_CREATEARTICLEREQUEST,
-    output_type=_CREATEARTICLEREPLY,
+    input_type=_UPDATEWORDCLOUDREQUEST,
+    output_type=_UPDATEWORDCLOUDREPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
