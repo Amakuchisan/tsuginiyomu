@@ -10,7 +10,7 @@ type ArticleID uint64
 
 // Article は記事を表す
 type Article struct {
-	ID  string `db:"id"`
+	ID  ArticleID `db:"id"`
 	URL string `db:"url"`
 }
 
