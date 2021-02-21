@@ -12,6 +12,19 @@ import (
 // 間に[a-zA-Z0-9_-]を1文字以上30文字以下で成り立つ
 var hatenaIDRE = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_-]{1,30}[a-zA-Z0-9]$`)
 
+// GetUser はユーザの取得を行う
+func (m *Manager) GetUser(ctx context.Context, hatenaID string) (*domain.User, error) {
+	if ok := hatenaIDRE.MatchString(hatenaID); !ok {
+		return nil, ErrInvalidArgument
+	}
+	repo := repository.NewRepository(m.db)
+	user, err := domain.GetUser(hatenaID)(ctx, repo)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
 // CreateUser はユーザの登録を行う
 func (m *Manager) CreateUser(ctx context.Context, hatenaID string) (*domain.User, error) {
 	if ok := hatenaIDRE.MatchString(hatenaID); !ok {
