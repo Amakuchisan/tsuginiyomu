@@ -62,3 +62,12 @@ func GetWord(hatenaID string) func(ctx context.Context, r Repository) ([]WordCou
 		return wordCount, err
 	}
 }
+
+// StructListToMap はWordCountの構造体をMapに変換する
+func StructListToMap(data []WordCount) map[string]uint32 {
+	m := make(map[string]uint32)
+	for _, value := range data {
+		m[value.Name] = value.Count
+	}
+	return m
+}
