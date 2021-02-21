@@ -10,6 +10,7 @@ type ArticleID uint64
 
 // Article は記事を表す
 type Article struct {
+	ID  string `db:"id"`
 	URL string `db:"url"`
 }
 
@@ -32,10 +33,8 @@ func CreateArticle(url string) func(ctx context.Context, r Repository) (*Article
 			if err != nil {
 				return nil, err
 			}
+			// Articleが既に作成されていた場合、見つかったarticleの情報を返却する
 			return article, ErrAlreadyExists
-		}
-		if err != nil {
-			return nil, err
 		}
 		return r.Article().Create(ctx, &CreateArticleInput{
 			URL: url,
