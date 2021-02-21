@@ -16,7 +16,8 @@ service Manager {
 
 // The request message.
 message CreateArticleRequest {
-  repeated string url = 1;
+  string hatenaID = 1;
+  repeated string url = 2;
 }
 
 // The response message containing the article's url

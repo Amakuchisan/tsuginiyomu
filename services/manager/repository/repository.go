@@ -16,6 +16,7 @@ type DB interface {
 // Repository は domain.Repository に対するデータベースを使った実装
 type Repository struct {
 	user        *UserRepository
+	userArticle *UserArticleRepository
 	article     *ArticleRepository
 	articleWord *ArticleWordRepository
 	word        *WordRepository
@@ -25,6 +26,7 @@ type Repository struct {
 func NewRepository(db DB) *Repository {
 	return &Repository{
 		user:        newUserRepository(db),
+		userArticle: newUserArticleRepository(db),
 		article:     newArticleRepository(db),
 		articleWord: newArticleWordRepository(db),
 		word:        newWordRepository(db),
@@ -34,6 +36,11 @@ func NewRepository(db DB) *Repository {
 // User はユーザーに対するリポジトリを返す
 func (r *Repository) User() domain.UserRepository {
 	return r.user
+}
+
+// UserArticle はユーザーに対するリポジトリを返す
+func (r *Repository) UserArticle() domain.UserArticleRepository {
+	return r.userArticle
 }
 
 // Article は記事に対するリポジトリを返す
