@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# font file
+.fonts/*
+
+# gitkeep
+!.gitkeep
