@@ -46,9 +46,6 @@ func CreateWord(noun string) func(ctx context.Context, r Repository) (*Word, err
 			}
 			return nil, ErrAlreadyExists
 		}
-		if err != nil {
-			return nil, err
-		}
 		return r.Word().Create(ctx, &CreateWordInput{
 			Name: noun,
 		})

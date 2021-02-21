@@ -6,7 +6,7 @@ import (
 )
 
 // UserID はユーザーにユニークに割り当てられる ID
-type UserID uint64
+type UserID uint32
 
 func (id UserID) String() string {
 	return strconv.FormatUint(uint64(id), 10)
