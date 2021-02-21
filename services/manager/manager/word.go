@@ -30,6 +30,7 @@ func (m *Manager) GetWord(ctx context.Context, hatenaID string) (map[string]uint
 	return StructListToMap(wordCount), nil
 }
 
+// StructListToMap はWordCountの構造体をMapに変換する
 func StructListToMap(data []domain.WordCount) map[string]uint32 {
 	m := make(map[string]uint32)
 	for _, value := range data {

@@ -18,7 +18,7 @@ type Word struct {
 	Name string `db:"name"`
 }
 
-// 単語返却時の形
+// WordCount 単語返却時の形
 type WordCount struct {
 	Name  string `db:"name"`
 	Count uint32 `db:"SUM(word_count)"`

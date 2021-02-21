@@ -36,7 +36,7 @@ func (r *ArticleRepository) Create(ctx context.Context, input *domain.CreateArti
 	return article, nil
 }
 
-// FindByName はリポジトリから名前で単語を検索する
+// FindByURL はリポジトリから名前で単語を検索する
 // BINARYを指定することで、大文字小文字の区別をつける
 func (r *ArticleRepository) FindByURL(ctx context.Context, url string) (*domain.Article, error) {
 	var article domain.Article
