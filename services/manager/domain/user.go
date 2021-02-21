@@ -31,6 +31,13 @@ type UserRepository interface {
 	UpdateWordcloud(ctx context.Context, hatenaID string, wordcloud []byte) (*User, error)
 }
 
+// GetUser は新規ユーザーを取得する
+func GetUser(hatenaID string) func(ctx context.Context, r Repository) (*User, error) {
+	return func(ctx context.Context, r Repository) (*User, error) {
+		return r.User().FindByHatenaID(ctx, hatenaID)
+	}
+}
+
 // CreateUser は新規ユーザーを作成する
 func CreateUser(hatenaID string) func(ctx context.Context, r Repository) (*User, error) {
 	return func(ctx context.Context, r Repository) (*User, error) {

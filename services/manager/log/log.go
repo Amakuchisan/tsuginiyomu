@@ -13,7 +13,6 @@ type Config struct {
 func NewLogger(conf Config) (*zap.Logger, error) {
 	if conf.Mode == "development" {
 		return zap.NewDevelopment()
-	} else {
-		return zap.NewProduction()
 	}
+	return zap.NewProduction()
 }

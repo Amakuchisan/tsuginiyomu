@@ -18,7 +18,7 @@ type Word struct {
 	Name string `db:"name"`
 }
 
-// 単語返却時の形
+// WordCount 単語返却時の形
 type WordCount struct {
 	Name  string `db:"name"`
 	Count uint32 `db:"SUM(word_count)"`
@@ -61,4 +61,13 @@ func GetWord(hatenaID string) func(ctx context.Context, r Repository) ([]WordCou
 		wordCount, err := r.Word().FindByHatenaID(ctx, hatenaID)
 		return wordCount, err
 	}
+}
+
+// StructListToMap はWordCountの構造体をMapに変換する
+func StructListToMap(data []WordCount) map[string]uint32 {
+	m := make(map[string]uint32)
+	for _, value := range data {
+		m[value.Name] = value.Count
+	}
+	return m
 }

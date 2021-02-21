@@ -36,7 +36,7 @@ func (r *ArticleRepository) Create(ctx context.Context, input *domain.CreateArti
 	return article, nil
 }
 
-// FindByName はリポジトリから名前で単語を検索する
+// FindByURL はリポジトリからURLで記事を検索する
 // BINARYを指定することで、大文字小文字の区別をつける
 func (r *ArticleRepository) FindByURL(ctx context.Context, url string) (*domain.Article, error) {
 	var article domain.Article
@@ -45,7 +45,7 @@ func (r *ArticleRepository) FindByURL(ctx context.Context, url string) (*domain.
 		r.db,
 		&article,
 		`
-			SELECT id FROM article
+			SELECT id, url FROM article
 				WHERE url = BINARY ? LIMIT 1
 		`,
 		url,
@@ -57,4 +57,27 @@ func (r *ArticleRepository) FindByURL(ctx context.Context, url string) (*domain.
 		return nil, err
 	}
 	return &article, nil
+}
+
+// FindNotHaveWord はリポジトリから単語と関連付けられていない記事を検索する
+func (r *ArticleRepository) FindNotHaveWord(ctx context.Context) ([]domain.Article, error) {
+	article := []domain.Article{}
+	err := sqlx.SelectContext(
+		ctx,
+		r.db,
+		&article,
+		`
+		SELECT article.id, url from article LEFT OUTER
+			JOIN article_word ON article.id=article_word.article_id
+			WHERE article_word.id IS NULL;
+		`,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, domain.ErrNotFound
+		}
+		return nil, err
+	}
+	return article, nil
 }

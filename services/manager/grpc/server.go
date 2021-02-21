@@ -4,7 +4,6 @@ import (
 	"crypto/ecdsa"
 
 	"github.com/Amakuchisan/tsuginiyomu/services/manager/manager"
-	// pb "github.com/Amakuchisan/tsuginiyomu/pb/go/manager"
 	pb "github.com/Amakuchisan/tsuginiyomu/services/manager/pb/manager"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 )

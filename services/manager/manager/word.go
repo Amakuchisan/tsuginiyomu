@@ -27,13 +27,5 @@ func (m *Manager) GetWord(ctx context.Context, hatenaID string) (map[string]uint
 	if err != nil {
 		return nil, err
 	}
-	return StructListToMap(wordCount), nil
-}
-
-func StructListToMap(data []domain.WordCount) map[string]uint32 {
-	m := make(map[string]uint32)
-	for _, value := range data {
-		m[value.Name] = value.Count
-	}
-	return m
+	return domain.StructListToMap(wordCount), nil
 }
