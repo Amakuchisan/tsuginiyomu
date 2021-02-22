@@ -43,8 +43,8 @@ message Article {
 
 // The request message containing the user's hatenaID.
 message CreateWordRequest {
-  string hatenaID = 1;
-  repeated Article article = 2;
+// string hatenaID = 1;
+  repeated Article article = 1;
 }
 /*
 Article article
