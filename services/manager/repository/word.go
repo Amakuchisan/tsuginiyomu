@@ -3,6 +3,8 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"fmt"
+	"strings"
 
 	"github.com/Amakuchisan/tsuginiyomu/services/manager/domain"
 	"github.com/jmoiron/sqlx"
@@ -18,22 +20,16 @@ func newWordRepository(db DB) *WordRepository {
 }
 
 // Create は新規単語を作成し, リポジトリに保存する
-func (r *WordRepository) Create(ctx context.Context, input *domain.CreateWordInput) (*domain.Word, error) {
-	word := &domain.Word{
-		Name: input.Name,
-	}
+func (r *WordRepository) Create(ctx context.Context, input *domain.CreateWordInput) ([]string, error) {
+	query := fmt.Sprintf("INSERT INTO word(name) VALUES (\"%s\")", strings.Join(input.Name, "\"), (\""))
 	_, err := r.db.ExecContext(
 		ctx,
-		`
-			INSERT INTO word (name)
-				VALUES (?)
-		`,
-		word.Name,
+		query,
 	)
 	if err != nil {
 		return nil, err
 	}
-	return word, nil
+	return input.Name, nil
 }
 
 // FindByName はリポジトリから名前で単語を検索する

@@ -26,6 +26,13 @@ type ArticleRepository interface {
 	FindNotHaveWord(ctx context.Context) ([]Article, error)
 }
 
+// GetArticle は記事を取得する
+func GetArticle(url string) func(ctx context.Context, r Repository) (*Article, error) {
+	return func(ctx context.Context, r Repository) (*Article, error) {
+		return r.Article().FindByURL(ctx, url)
+	}
+}
+
 // CreateArticle は新規記事を作成する
 func CreateArticle(url string) func(ctx context.Context, r Repository) (*Article, error) {
 	return func(ctx context.Context, r Repository) (*Article, error) {
