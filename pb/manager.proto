@@ -8,10 +8,21 @@ package manager;
 service Manager {
   // Sends a Word
   rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
-  rpc CreateWord (CreateWordRequest) returns (CreateWordReply) {}
   rpc CreateArticle (CreateArticleRequest) returns (CreateArticleReply) {}
+  rpc CreateWord (CreateWordRequest) returns (CreateWordReply) {}
   rpc UpdateWordcloud (UpdateWordcloudRequest) returns (UpdateWordcloudReply) {}
   rpc GetWord (GetWordRequest) returns (GetWordReply) {}
+}
+
+// The request message containing the user's hatenaID.
+message CreateUserRequest {
+  string hatenaID = 1;
+}
+
+// The response message containing the {word: count}
+message CreateUserReply {
+  string hatenaID = 1;
+  bytes wordCloud = 2;
 }
 
 // The request message.
@@ -25,14 +36,28 @@ message CreateArticleReply {
   repeated string new_created_url = 1; // 新規に作成されたURL
 }
 
-// The request message containing the user's hatenaID.
-message GetWordRequest {
-  string hatenaID = 1;
+message Article {
+  string url = 1;
+  map<string, uint32> word_count = 2;
 }
 
-// The response message containing the {word.name: word.count}
-message GetWordReply {
-  map<string, uint32> wordCount = 1;
+// The request message containing the article.
+message CreateWordRequest {
+// string hatenaID = 1;
+  repeated Article article = 1;
+}
+/*
+Article article
+{url:
+  (word, count)
+  (word, count)
+  (word, count)
+}
+*/
+
+// The response message containing the {word: count}
+message CreateWordReply {
+  bool created = 1;
 }
 
 // The request message containing the user's hatenaID, wordcloud.
@@ -48,38 +73,11 @@ message UpdateWordcloudReply {
 }
 
 // The request message containing the user's hatenaID.
-message CreateUserRequest {
+message GetWordRequest {
   string hatenaID = 1;
 }
 
-// The response message containing the {word: count}
-message CreateUserReply {
-  string hatenaID = 1;
-  bytes wordCloud = 2;
-}
-
-message Article {
-  string url = 1;
-  map<string, uint32> noun = 2;
-}
-
-// The request message containing the user's hatenaID.
-message CreateWordRequest {
-  string hatenaID = 1;
-  Article article = 2;
-//  map<>;
-}
-/*
-
-
-{url:
-    (word, count)
-    (word, count)
-    (word, count)}
-
-*/
-
-// The response message containing the {word: count}
-message CreateWordReply {
-  bool created = 1;
+// The response message containing the {word.name: word.count}
+message GetWordReply {
+  map<string, uint32> wordCount = 1;
 }

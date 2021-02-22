@@ -25,15 +25,33 @@ type CreateArticleWordInput struct {
 // ArticleWordRepository はArticleWordのリポジトリ
 type ArticleWordRepository interface {
 	Create(ctx context.Context, input *CreateArticleWordInput) (*ArticleWord, error)
+	FindByArticleAndWordID(ctx context.Context, articleID ArticleID, wordID WordID) (*ArticleWord, error)
 }
 
 // CreateArticleWord は記事と単語の関係を作成する
-func CreateArticleWord(articleID ArticleID, wordID WordID, count uint32) func(ctx context.Context, r Repository) (*ArticleWord, error) {
-	return func(ctx context.Context, r Repository) (*ArticleWord, error) {
-		return r.ArticleWord().Create(ctx, &CreateArticleWordInput{
-			ArticleID: articleID,
-			WordID:    wordID,
-			Count:     count,
-		})
+func CreateArticleWord(articleID ArticleID, wordCount map[string]uint32) func(ctx context.Context, r Repository) error {
+	return func(ctx context.Context, r Repository) error {
+		for noun, count := range wordCount {
+			word, err := r.Word().FindByName(ctx, noun)
+			if err != nil {
+				return err
+			}
+			_, err = r.ArticleWord().FindByArticleAndWordID(ctx, articleID, word.ID)
+			if err != ErrNotFound {
+				if err != nil {
+					return err
+				}
+			} else {
+				_, err := r.ArticleWord().Create(ctx, &CreateArticleWordInput{
+					ArticleID: articleID,
+					WordID:    word.ID,
+					Count:     count,
+				})
+				if err != nil {
+					return err
+				}
+			}
+		}
+		return nil
 	}
 }

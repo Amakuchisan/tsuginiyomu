@@ -2,10 +2,10 @@ package repository
 
 import (
 	"context"
-	// "database/sql"
+	"database/sql"
 
 	"github.com/Amakuchisan/tsuginiyomu/services/manager/domain"
-	// "github.com/jmoiron/sqlx"
+	"github.com/jmoiron/sqlx"
 )
 
 // ArticleWordRepository は domain.ArticleWordRepository に対するデータベースを使った実装
@@ -27,7 +27,7 @@ func (r *ArticleWordRepository) Create(ctx context.Context, input *domain.Create
 	_, err := r.db.ExecContext(
 		ctx,
 		`
-			INSERT INTO article_word (article_id, word_id, count)
+			INSERT INTO article_word (article_id, word_id, word_count)
 				VALUES (?, ?, ?)
 		`,
 		articleWord.ArticleID,
@@ -38,4 +38,26 @@ func (r *ArticleWordRepository) Create(ctx context.Context, input *domain.Create
 		return nil, err
 	}
 	return articleWord, nil
+}
+
+// FindByArticleAndWordID は既にArticleIDとWordIDの関係が登録されているか調べる
+func (r *ArticleWordRepository) FindByArticleAndWordID(ctx context.Context, articleID domain.ArticleID, wordID domain.WordID) (*domain.ArticleWord, error) {
+	var articleWord domain.ArticleWord
+	err := sqlx.GetContext(
+		ctx,
+		r.db,
+		&articleWord,
+		`
+			SELECT id FROM article_word
+				WHERE article_id = ? AND word_id = ? LIMIT 1
+		`,
+		articleID, wordID,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, domain.ErrNotFound
+		}
+		return nil, err
+	}
+	return &articleWord, nil
 }

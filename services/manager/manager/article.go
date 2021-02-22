@@ -7,6 +7,16 @@ import (
 	"github.com/Amakuchisan/tsuginiyomu/services/manager/repository"
 )
 
+// GetArticle は記事の取得を行う
+func (m *Manager) GetArticle(ctx context.Context, url string) (*domain.Article, error) {
+	repo := repository.NewRepository(m.db)
+	article, err := domain.GetArticle(url)(ctx, repo)
+	if err != nil {
+		return nil, err
+	}
+	return article, nil
+}
+
 // CreateArticle は記事の登録を行う
 func (m *Manager) CreateArticle(ctx context.Context, url string) (*domain.Article, error) {
 	repo := repository.NewRepository(m.db)

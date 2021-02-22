@@ -26,29 +26,39 @@ type WordCount struct {
 
 // CreateWordInput は単語作成時の入力
 type CreateWordInput struct {
-	Name string
+	Name []string
 }
 
 // WordRepository はユーザーのリポジトリ
 type WordRepository interface {
-	Create(ctx context.Context, input *CreateWordInput) (*Word, error)
+	Create(ctx context.Context, input *CreateWordInput) ([]string, error)
 	FindByName(ctx context.Context, word string) (*Word, error)
 	FindByHatenaID(ctx context.Context, hatenaID string) ([]WordCount, error)
 }
 
 // CreateWord は新規単語を作成する
-func CreateWord(noun string) func(ctx context.Context, r Repository) (*Word, error) {
-	return func(ctx context.Context, r Repository) (*Word, error) {
-		_, err := r.Word().FindByName(ctx, noun)
-		if err != ErrNotFound {
+func CreateWord(wordCount map[string]uint32) func(ctx context.Context, r Repository) ([]string, error) {
+	return func(ctx context.Context, r Repository) ([]string, error) {
+		nouns := []string{}
+		for noun := range wordCount {
+			_, err := r.Word().FindByName(ctx, noun)
+			if err != ErrNotFound {
+				if err != nil {
+					return nil, err
+				}
+			} else {
+				nouns = append(nouns, noun)
+			}
+		}
+		if len(nouns) > 0 {
+			_, err := r.Word().Create(ctx, &CreateWordInput{
+				Name: nouns,
+			})
 			if err != nil {
 				return nil, err
 			}
-			return nil, ErrAlreadyExists
 		}
-		return r.Word().Create(ctx, &CreateWordInput{
-			Name: noun,
-		})
+		return nouns, nil
 	}
 }
 
