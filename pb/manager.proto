@@ -41,7 +41,7 @@ message Article {
   map<string, uint32> word_count = 2;
 }
 
-// The request message containing the user's hatenaID.
+// The request message containing the article.
 message CreateWordRequest {
 // string hatenaID = 1;
   repeated Article article = 1;
