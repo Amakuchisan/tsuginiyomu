@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # font file
-.fonts/*
+.fonts/
 
 # gitkeep
 !.gitkeep

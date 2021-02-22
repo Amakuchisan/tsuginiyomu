@@ -1,0 +1,21 @@
+<a href="/">トップに戻る</a>
+<form method="GET" action="/atodeyomu">
+    <input type="submit" id="atodeyomu" value="次に読む記事を探す">
+</form>
+
+{% if atodeyomu_entries %}
+<ul class="atodeyomu-group">
+    <table border="1">
+        <tr>
+            <th>タイトル</th>
+            <th>興味ありそう度</th>
+        </tr>
+        {% for entry in atodeyomu_entries %}
+        <tr>
+            <td><a href="{{ entry['link'] }}">{{ entry['title'] }}</a></td>
+            <td> {{ entry['score'] }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+</ul>
+{% endif %}

@@ -292,7 +292,7 @@ func (x *Article) GetWordCount() map[string]uint32 {
 	return nil
 }
 
-// The request message containing the user's hatenaID.
+// The request message containing the article.
 type CreateWordRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
