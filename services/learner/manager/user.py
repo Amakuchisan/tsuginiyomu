@@ -4,7 +4,6 @@ import pb.manager.manager_pb2 as manager_pb2
 import pb.manager.manager_pb2_grpc as manager_pb2_grpc
 
 def update_wordcloud(hatena_id: str, wordcloud):
-    print("imagetype: ", type(wordcloud))
     with grpc.insecure_channel('manager:50051') as channel:
         stub = manager_pb2_grpc.ManagerStub(channel)
         response = stub.UpdateWordcloud(manager_pb2.UpdateWordcloudRequest(hatenaID=hatena_id, wordcloud=wordcloud))
