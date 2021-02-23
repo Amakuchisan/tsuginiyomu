@@ -19,12 +19,23 @@ class LearnerStub(object):
                 request_serializer=learner__pb2.LearnRequest.SerializeToString,
                 response_deserializer=learner__pb2.LearnReply.FromString,
                 )
+        self.CreateWordCloud = channel.unary_unary(
+                '/learner.Learner/CreateWordCloud',
+                request_serializer=learner__pb2.CreateWordCloudRequest.SerializeToString,
+                response_deserializer=learner__pb2.CreateWordCloudReply.FromString,
+                )
 
 
 class LearnerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Learn(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateWordCloud(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_LearnerServicer_to_server(servicer, server):
                     servicer.Learn,
                     request_deserializer=learner__pb2.LearnRequest.FromString,
                     response_serializer=learner__pb2.LearnReply.SerializeToString,
+            ),
+            'CreateWordCloud': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateWordCloud,
+                    request_deserializer=learner__pb2.CreateWordCloudRequest.FromString,
+                    response_serializer=learner__pb2.CreateWordCloudReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class Learner(object):
         return grpc.experimental.unary_unary(request, target, '/learner.Learner/Learn',
             learner__pb2.LearnRequest.SerializeToString,
             learner__pb2.LearnReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreateWordCloud(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/learner.Learner/CreateWordCloud',
+            learner__pb2.CreateWordCloudRequest.SerializeToString,
+            learner__pb2.CreateWordCloudReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

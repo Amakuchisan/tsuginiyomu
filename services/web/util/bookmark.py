@@ -1,16 +1,13 @@
-from base64 import b64encode
 import feedparser
-import io
 import math
 import os
 import re
 import requests
 import sys
 
-from domain import user
 from manager import word, article
 from util import word as wd
-from util import wc
+
 
 class Bookmark:
     # 公開しているブックマークの数を求める
@@ -23,19 +20,8 @@ class Bookmark:
         self.osusumedic = {}
         self.entries = {}
 
-    def learn(self, hatena_id: str) -> bool:
-        articles = []
-        url_list = article.create(hatena_id, self.get_url(hatena_id)) # DBに新規に登録したURLを取得
-        for url in url_list:
-            html = wd.get_body_from_URL(url)
-            if not html :
-                continue # htmlが空だったら、次のurlへ
-
-            noun = wd.get_noun(html)
-            # 登場回数が多い順に3件取得
-            dic = wd.get_n_dict(wd.create_dict_from_list(noun), 3)
-            articles.append(article.createArticleModel(url, dic))
-        return word.create(articles)
+    def init(self, hatena_id: str):
+        self.calc_feature(hatena_id)
 
     def count_bookmark_page(self, hatena_id: str, option: str = '') -> int:
         data = requests.get(
@@ -48,6 +34,21 @@ class Bookmark:
             print('Error: num is string', file=sys.stderr)
             return 0
         return math.ceil(int(num)/20)
+
+    # 特徴量を計算し、DBに保存
+    def calc_feature(self, hatena_id: str):
+        articles = []
+        url_list = article.create(hatena_id, self.get_url(hatena_id)) # DBに新規に登録したURLを取得
+        for url in url_list:
+            html = wd.get_body_from_URL(url)
+            if not html :
+                continue # htmlが空だったら、次のurlへ
+
+            noun = wd.get_noun(html)
+            # 登場回数が多い順に3件取得
+            dic = wd.get_n_dict(wd.create_dict_from_list(noun), 3)
+            articles.append(article.createArticleModel(url, dic))
+        word.create(articles)
 
     # optionには追加のクエリパラメータを記述
     def get_title(self, hatena_id: str, option: str = '') -> list[str]:
@@ -164,13 +165,3 @@ class Bookmark:
                 dict(link=entry['link'], title=entry['title'], score=dic[entry['link']]))
 
         return data
-
-    def update_wordcloud(self, hatena_id: str):
-        titles = self.get_title(hatena_id)
-        output = io.BytesIO()
-        wc.create_wordcloud(wd.get_noun(' '.join(titles))
-                            ).save(output, format='PNG')
-        wordcloud = b64encode(output.getvalue())
-        user.update_wordcloud(hatena_id, wordcloud)
-        print("wc type : ", type(wordcloud))
-        return wordcloud

@@ -4,7 +4,7 @@ WORKDIR /work
 
 # mecabとmecab-ipadic-NEologdの導入
 RUN apt-get update \
-    && apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git gcc g++ make curl xz-utils file sudo
+    && apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git gcc g++ make curl xz-utils file sudo default-libmysqlclient-dev
 
 RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
     && cd mecab-ipadic-neologd \
@@ -35,4 +35,5 @@ COPY . .
 
 RUN sed -i -e 's/CipherString = DEFAULT@SECLEVEL=2/# CipherString = DEFAULT@SECLEVEL=2/g' /etc/ssl/openssl.cnf
 
-CMD ["python3", "/work/server.py"]
+ENV FLASK_APP /work/web/app.py
+CMD ["flask", "run", "-h", "0.0.0.0"]

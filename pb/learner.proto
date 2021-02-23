@@ -4,6 +4,7 @@ package learner;
 
 service Learner {
   rpc Learn (LearnRequest) returns (LearnReply) {}
+  rpc CreateWordCloud (CreateWordCloudRequest) returns (CreateWordCloudReply) {}
 }
 
 message LearnRequest {
@@ -12,4 +13,12 @@ message LearnRequest {
 
 message LearnReply {
   bool learned = 1;
+}
+
+message CreateWordCloudRequest {
+  string hatena_id = 1;
+}
+
+message CreateWordCloudReply {
+  bytes wordcloud = 1;
 }

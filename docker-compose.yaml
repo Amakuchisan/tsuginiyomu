@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  web:
+    container_name: ty-web-container
+    tty: true
+    stdin_open: true
+    environment:
+      TZ: Japan
+    build:
+      context: services/web/
+    ports:
+      - "50052:5000"
+    depends_on:
+      - learner
+
   learner:
     container_name: ty-learner-container
     tty: true
@@ -10,7 +23,7 @@ services:
     build:
       context: services/learner/
     ports:
-      - "50050:5000"
+      - "50050:50050"
     depends_on:
       - manager
 
