@@ -22,7 +22,7 @@ message CreateUserRequest {
 // The response message containing the {word: count}
 message CreateUserReply {
   string hatenaID = 1;
-  bytes wordCloud = 2;
+  bytes wordcloud = 2;
 }
 
 // The request message.

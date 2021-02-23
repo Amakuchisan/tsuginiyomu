@@ -1,0 +1,20 @@
+import grpc
+
+from util.bookmark import Bookmark
+import pb.learner.learner_pb2 as learner_pb2
+import pb.learner.learner_pb2_grpc as learner_pb2_grpc
+
+class Learner(learner_pb2_grpc.LearnerServicer):
+    def __init__(self):
+        self.bookmark = Bookmark()
+    def Learn(self, request, context):
+        learned = self.bookmark.learn(request.hatena_id)
+        return learner_pb2.LearnReply(learned=learned)
+
+    def CreateWordCloud(self, request, context):
+        wordcloud = self.bookmark.update_wordcloud(request.hatena_id)
+        return learner_pb2.CreateWordCloudReply(wordcloud=wordcloud)
+
+    def GetSuggestion(self, request, context):
+        suggestions = self.bookmark.get_suggestions(request.hatena_id, "tag=あとで読む&")
+        return learner_pb2.GetSuggestionReply(suggestions=suggestions)

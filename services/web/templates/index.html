@@ -6,16 +6,14 @@
 {% if hatena_id == ""  %}
     はてなIDを入力してください。
 {% else %}
-    {{hatena_id}} さん　を分析します。
+    {{hatena_id}} さん　が "あとで読む" とした記事から、次に読む記事をオススメします。
     <form method="POST" action="/learn">
         <input type="submit" id="learn" value="学習する">
     </form>
-    <form method="POST" action="/recommended">
-        <input type="submit" id="recommended" value="興味ありそう度を求める">
-    </form>
 {% endif %}
 
-<ul class="list-group">
+{% if entries %}
+<ul class="atodeyomu-group">
     <table border="1">
         <tr>
             <th>タイトル</th>
@@ -24,24 +22,20 @@
         {% for entry in entries %}
         <tr>
             <td><a href="{{ entry['link'] }}">{{ entry['title'] }}</a></td>
-            <td> {{ entry['recommendation_score'] }} </td>
+            <td> {{ entry['score'] }} </td>
         </tr>
         {% endfor %}
     </table>
 </ul>
-
-{% if hatena_id != ""  %}
-    <p>{{hatena_id}} さんが "あとで読む" から次に読む記事をオススメします。</p>
-    <p>はじめに、"学習する" から、データを学習しておきましょう。</p>
-    <form method="GET" action="/atodeyomu">
-        <input type="submit" id="atodeyomu" value="次に読む記事を探す">
-    </form>
 {% endif %}
+
 
 <h2>WordCloudを作成する</h2>
 <p>WordCloudを作成して、あなたの興味を可視化しよう</p>
 
-<form method="POST" action="/">
+<form method="POST" action="/wordcloud">
     <input type="submit" id="updateWordCloud" value="画像を更新する">
 </form>
+{% if image %}
 <img src="data:;base64,{{ image }}" />
+{% endif %}
