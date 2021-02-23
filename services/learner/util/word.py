@@ -79,8 +79,11 @@ def allow_robots_txt(url: str):
 
 
 def get_retry(url, retry_times, errs):
+    headers = {
+        'User-Agent': 'tsuginiyomu (github.com/Amakuchisan)'
+    }
     for t in range(retry_times + 1):
-        r = requests.get(url, verify=False)
+        r = requests.get(url, headers=headers, verify=False)
         if t < retry_times:
             if r.status_code in errs:
                 sleep(2)

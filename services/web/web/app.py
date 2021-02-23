@@ -1,23 +1,16 @@
-from base64 import b64encode
 from flask import Flask, render_template, request, redirect, url_for
-import io
 
 from util.bookmark import Bookmark
 from util import wc, word
 
-from domain import user
 from learner import learner
+from manager import manager
 
 app = Flask(__name__, template_folder='/work/templates')
 
-output = io.BytesIO()
-wc.create_wordcloud('').save(output, format='PNG')
-sample_image = b64encode(output.getvalue()).decode("utf-8")
-image = sample_image
-
+image = None
 bookmark = Bookmark()
 hatena_id = ""
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -40,10 +33,10 @@ def id():
         global hatena_id
         global image
         hatena_id = request.form["user_id"]
-        u = user.create(hatena_id)
-        img = u.wordCloud
+        u = manager.create_user(hatena_id)
+        img = u.wordcloud
         if not img:
-            image = sample_image
+            image = None
         else:
             image = img.decode("utf-8")
     return redirect(url_for('index'))
@@ -56,21 +49,21 @@ def learn():
     return redirect(url_for('index'))
 
 
-@app.route('/recommended', methods=['POST'])
-def recommended():
-    if request.method == 'POST':
-        bookmark.count_osusume(hatena_id)
-    return redirect(url_for('index'))
+# @app.route('/recommended', methods=['POST'])
+# def recommended():
+#     if request.method == 'POST':
+#         bookmark.count_osusume(hatena_id)
+#     return redirect(url_for('index'))
 
 
-@app.route('/atodeyomu', methods=['GET'])
-def atodeyomu():
-    if request.method == 'GET':
-        entries = bookmark.get_suggestion(hatena_id, "tag=あとで読む&")
-        if not entries[0]['score'] == "データがありません":
-            entries = sorted(entries,
-                            key=lambda x: x['score'], reverse=True)
-        return render_template("atodeyomu.html", hatena_id=hatena_id, atodeyomu_entries=entries)
+# @app.route('/atodeyomu', methods=['GET'])
+# def atodeyomu():
+#     if request.method == 'GET':
+#         entries = bookmark.get_suggestion(hatena_id, "tag=あとで読む&")
+#         if not entries[0]['score'] == "データがありません":
+#             entries = sorted(entries,
+#                             key=lambda x: x['score'], reverse=True)
+#         return render_template("atodeyomu.html", hatena_id=hatena_id, atodeyomu_entries=entries)
 
 
 if __name__ == "__main__":

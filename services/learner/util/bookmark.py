@@ -165,12 +165,11 @@ class Bookmark:
 
         return data
 
-    def update_wordcloud(self, hatena_id: str):
+    def update_wordcloud(self, hatena_id: str) -> bytes:
         titles = self.get_title(hatena_id)
         output = io.BytesIO()
         wc.create_wordcloud(wd.get_noun(' '.join(titles))
                             ).save(output, format='PNG')
         wordcloud = b64encode(output.getvalue())
         user.update_wordcloud(hatena_id, wordcloud)
-        print("wc type : ", type(wordcloud))
         return wordcloud

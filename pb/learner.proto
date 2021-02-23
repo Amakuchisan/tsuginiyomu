@@ -7,6 +7,7 @@ service Learner {
   rpc CreateWordCloud (CreateWordCloudRequest) returns (CreateWordCloudReply) {}
 }
 
+// The request message containing the user's hatenaID.
 message LearnRequest {
   string hatena_id = 1;
 }
@@ -15,10 +16,12 @@ message LearnReply {
   bool learned = 1;
 }
 
+// The request message containing the user's hatenaID.
 message CreateWordCloudRequest {
   string hatena_id = 1;
 }
 
+// The response message containing the wordcloud images
 message CreateWordCloudReply {
   bytes wordcloud = 1;
 }

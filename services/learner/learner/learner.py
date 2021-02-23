@@ -3,6 +3,7 @@ import grpc
 from util.bookmark import Bookmark
 import pb.learner.learner_pb2 as learner_pb2
 import pb.learner.learner_pb2_grpc as learner_pb2_grpc
+from manager import user
 
 class Learner(learner_pb2_grpc.LearnerServicer):
     def Learn(self, request, context):
