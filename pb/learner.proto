@@ -6,6 +6,7 @@ service Learner {
   rpc Learn (LearnRequest) returns (LearnReply) {}
   rpc GetSuggestion (GetSuggestionRequest) returns (GetSuggestionReply) {}
   rpc CreateWordCloud (CreateWordCloudRequest) returns (CreateWordCloudReply) {}
+  rpc ExistsHatenaID (ExistsHatenaIDRequest) returns (ExistsHatenaIDReply) {}
 }
 
 // The request message containing the user's hatenaID.
@@ -39,4 +40,13 @@ message Suggestion {
 
 message GetSuggestionReply {
   repeated Suggestion suggestions = 1;
+}
+
+// The request message containing the user's hatenaID.
+message ExistsHatenaIDRequest {
+  string hatena_id = 1;
+}
+
+message ExistsHatenaIDReply {
+  bool existed = 1;
 }

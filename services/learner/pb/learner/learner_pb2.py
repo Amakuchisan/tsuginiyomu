@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rlearner.proto\x12\x07learner\"!\n\x0cLearnRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"\x1d\n\nLearnReply\x12\x0f\n\x07learned\x18\x01 \x01(\x08\"+\n\x16\x43reateWordCloudRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\")\n\x14\x43reateWordCloudReply\x12\x11\n\twordcloud\x18\x01 \x01(\x0c\")\n\x14GetSuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"8\n\nSuggestion\x12\x0c\n\x04link\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\r\">\n\x12GetSuggestionReply\x12(\n\x0bsuggestions\x18\x01 \x03(\x0b\x32\x13.learner.Suggestion2\xe4\x01\n\x07Learner\x12\x35\n\x05Learn\x12\x15.learner.LearnRequest\x1a\x13.learner.LearnReply\"\x00\x12M\n\rGetSuggestion\x12\x1d.learner.GetSuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12S\n\x0f\x43reateWordCloud\x12\x1f.learner.CreateWordCloudRequest\x1a\x1d.learner.CreateWordCloudReply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\rlearner.proto\x12\x07learner\"!\n\x0cLearnRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"\x1d\n\nLearnReply\x12\x0f\n\x07learned\x18\x01 \x01(\x08\"+\n\x16\x43reateWordCloudRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\")\n\x14\x43reateWordCloudReply\x12\x11\n\twordcloud\x18\x01 \x01(\x0c\")\n\x14GetSuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"8\n\nSuggestion\x12\x0c\n\x04link\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\r\">\n\x12GetSuggestionReply\x12(\n\x0bsuggestions\x18\x01 \x03(\x0b\x32\x13.learner.Suggestion\"*\n\x15\x45xistsHatenaIDRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"&\n\x13\x45xistsHatenaIDReply\x12\x0f\n\x07\x65xisted\x18\x01 \x01(\x08\x32\xb6\x02\n\x07Learner\x12\x35\n\x05Learn\x12\x15.learner.LearnRequest\x1a\x13.learner.LearnReply\"\x00\x12M\n\rGetSuggestion\x12\x1d.learner.GetSuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12S\n\x0f\x43reateWordCloud\x12\x1f.learner.CreateWordCloudRequest\x1a\x1d.learner.CreateWordCloudReply\"\x00\x12P\n\x0e\x45xistsHatenaID\x12\x1e.learner.ExistsHatenaIDRequest\x1a\x1c.learner.ExistsHatenaIDReply\"\x00\x62\x06proto3'
 )
 
 
@@ -262,6 +262,70 @@ _GETSUGGESTIONREPLY = _descriptor.Descriptor(
   serialized_end=343,
 )
 
+
+_EXISTSHATENAIDREQUEST = _descriptor.Descriptor(
+  name='ExistsHatenaIDRequest',
+  full_name='learner.ExistsHatenaIDRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='hatena_id', full_name='learner.ExistsHatenaIDRequest.hatena_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=345,
+  serialized_end=387,
+)
+
+
+_EXISTSHATENAIDREPLY = _descriptor.Descriptor(
+  name='ExistsHatenaIDReply',
+  full_name='learner.ExistsHatenaIDReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='existed', full_name='learner.ExistsHatenaIDReply.existed', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=389,
+  serialized_end=427,
+)
+
 _GETSUGGESTIONREPLY.fields_by_name['suggestions'].message_type = _SUGGESTION
 DESCRIPTOR.message_types_by_name['LearnRequest'] = _LEARNREQUEST
 DESCRIPTOR.message_types_by_name['LearnReply'] = _LEARNREPLY
@@ -270,6 +334,8 @@ DESCRIPTOR.message_types_by_name['CreateWordCloudReply'] = _CREATEWORDCLOUDREPLY
 DESCRIPTOR.message_types_by_name['GetSuggestionRequest'] = _GETSUGGESTIONREQUEST
 DESCRIPTOR.message_types_by_name['Suggestion'] = _SUGGESTION
 DESCRIPTOR.message_types_by_name['GetSuggestionReply'] = _GETSUGGESTIONREPLY
+DESCRIPTOR.message_types_by_name['ExistsHatenaIDRequest'] = _EXISTSHATENAIDREQUEST
+DESCRIPTOR.message_types_by_name['ExistsHatenaIDReply'] = _EXISTSHATENAIDREPLY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 LearnRequest = _reflection.GeneratedProtocolMessageType('LearnRequest', (_message.Message,), {
@@ -321,6 +387,20 @@ GetSuggestionReply = _reflection.GeneratedProtocolMessageType('GetSuggestionRepl
   })
 _sym_db.RegisterMessage(GetSuggestionReply)
 
+ExistsHatenaIDRequest = _reflection.GeneratedProtocolMessageType('ExistsHatenaIDRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EXISTSHATENAIDREQUEST,
+  '__module__' : 'learner_pb2'
+  # @@protoc_insertion_point(class_scope:learner.ExistsHatenaIDRequest)
+  })
+_sym_db.RegisterMessage(ExistsHatenaIDRequest)
+
+ExistsHatenaIDReply = _reflection.GeneratedProtocolMessageType('ExistsHatenaIDReply', (_message.Message,), {
+  'DESCRIPTOR' : _EXISTSHATENAIDREPLY,
+  '__module__' : 'learner_pb2'
+  # @@protoc_insertion_point(class_scope:learner.ExistsHatenaIDReply)
+  })
+_sym_db.RegisterMessage(ExistsHatenaIDReply)
+
 
 
 _LEARNER = _descriptor.ServiceDescriptor(
@@ -330,8 +410,8 @@ _LEARNER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=346,
-  serialized_end=574,
+  serialized_start=430,
+  serialized_end=740,
   methods=[
   _descriptor.MethodDescriptor(
     name='Learn',
@@ -360,6 +440,16 @@ _LEARNER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CREATEWORDCLOUDREQUEST,
     output_type=_CREATEWORDCLOUDREPLY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ExistsHatenaID',
+    full_name='learner.Learner.ExistsHatenaID',
+    index=3,
+    containing_service=None,
+    input_type=_EXISTSHATENAIDREQUEST,
+    output_type=_EXISTSHATENAIDREPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

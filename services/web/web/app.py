@@ -24,8 +24,10 @@ def index():
 def id():
     if request.method == 'POST':
         global hatena_id
-        hatena_id = request.form["user_id"]
-        u = manager.create_user(hatena_id)
+        id = request.form["user_id"]
+        if learner.exists_hatena_id(id):
+            hatena_id = id
+            u = manager.create_user(hatena_id)
     return redirect(url_for('index'))
 
 @app.route('/wordcloud', methods=['POST'])
