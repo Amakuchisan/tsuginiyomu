@@ -35,4 +35,4 @@ COPY . .
 
 RUN sed -i -e 's/CipherString = DEFAULT@SECLEVEL=2/# CipherString = DEFAULT@SECLEVEL=2/g' /etc/ssl/openssl.cnf
 
-CMD ["python3", "/work/server.py"]
+CMD ["python3", "/work/main.py"]
