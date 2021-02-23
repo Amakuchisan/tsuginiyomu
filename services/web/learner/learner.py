@@ -19,3 +19,9 @@ def get_suggestion(hatena_id: str) -> learner_pb2.Suggestion:
         stub = learner_pb2_grpc.LearnerStub(channel)
         response = stub.GetSuggestion(learner_pb2.GetSuggestionRequest(hatena_id=hatena_id))
     return response.suggestions
+
+def exists_hatena_id(hatena_id: str) -> bool:
+    with grpc.insecure_channel('learner:50050') as channel:
+        stub = learner_pb2_grpc.LearnerStub(channel)
+        response = stub.ExistsHatenaID(learner_pb2.ExistsHatenaIDRequest(hatena_id=hatena_id))
+    return response.existed

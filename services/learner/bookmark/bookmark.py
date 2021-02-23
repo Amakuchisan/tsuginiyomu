@@ -2,13 +2,11 @@ from base64 import b64encode
 import feedparser
 import io
 import math
-import os
 import re
 import requests
 import sys
 
-from domain import user
-from manager import word, article
+from manager import user, word, article
 import pb.learner.learner_pb2 as learner_pb2
 from util import word as wd
 from util import wc
@@ -16,11 +14,6 @@ from util import wc
 class Bookmark:
     # 公開しているブックマークの数を求める
     def __init__(self):
-        self.allnoun = []
-        self.dic = {}
-        self.bodies = []
-        self.bodynoun = []
-        self.bodydic = {}
         self.osusumedic = {}
         self.entries = {}
 
@@ -42,12 +35,13 @@ class Bookmark:
         data = requests.get(
             'https://b.hatena.ne.jp/{}/bookmark.rss?{}'.format(hatena_id, option))
         d = feedparser.parse(data.text)
-        content = d['feed']['subtitle']  # 'Userのはてなブックマーク (num)'
+        content = d['feed'].get('subtitle')  # 'Userのはてなブックマーク (num)'
+        if content is None:
+            raise Exception('Error: User does not exists')
         match = re.search(r"(はてなブックマーク \()(.*?)\)", content)
         num = match.group(2).replace(',', '')  # 公開しているブックマーク数
         if not num.isdecimal():
-            print('Error: num is string', file=sys.stderr)
-            return 0
+            raise Exception('Error: bookmark num is string')
         return math.ceil(int(num)/20)
 
     # optionには追加のクエリパラメータを記述
@@ -55,7 +49,11 @@ class Bookmark:
         # 1ページに20件のデータがある。ページ数を求める
         if hatena_id == "":
             return []
-        max_page = self.count_bookmark_page(hatena_id, option)
+        try:
+            max_page = self.count_bookmark_page(hatena_id, option)
+        except Exception as err:
+            print(err, file=sys.stderr)
+            max_page = 0
 
         if max_page > 10:
             # 最大200件まで取得するようにする
@@ -77,7 +75,11 @@ class Bookmark:
         # 1ページに20件のデータがある。ページ数を求める
         if hatena_id == "":
             return []
-        max_page = self.count_bookmark_page(hatena_id, option)
+        try:
+            max_page = self.count_bookmark_page(hatena_id, option)
+        except Exception as err:
+            print(err, file=sys.stderr)
+            max_page = 0
 
         if max_page > 10:
             # 最大200件まで取得するようにする
@@ -94,42 +96,15 @@ class Bookmark:
                 links.append(entry['link'])
         return links
 
-    def count_osusume(self, hatena_id: str):
-        self.osusumedic = {}
-        w = word.find_word(hatena_id)
-        if len(w) == 0:
-            # 検索結果が0だったら何もしない
-            return
-        for entry in self.entries:
-            if hatena_id == "":
-                return ""
-            noun = wd.get_noun(entry['title'])
-            self.osusumedic.setdefault(entry['link'], 0)
-            for n in noun:
-                if n in w:
-                    self.osusumedic[entry['link']] += w[n]
-
-    def update_hotentry(self, category: str):
-        d = feedparser.parse(
-            'https://b.hatena.ne.jp/hotentry/{}.rss'.format(category))
-        self.entries = d['entries']
-
-    def get_hotentry(self, hatena_id: str, category: str) -> list[dict[str, str]]:
-        entries = []
-        osusume = "未計算"
-        self.update_hotentry(category)
-        for entry in self.entries:
-            if entry['link'] in self.osusumedic:
-                osusume = self.osusumedic[entry['link']]
-            entries.append(
-                dict(link=entry['link'], title=entry['title'], recommendation_score=osusume))
-        return entries
-
     def get_user_entries(self, hatena_id: str, option: str = '') -> list[feedparser.util.FeedParserDict]:
         # 1ページに20件のデータがある。ページ数を求める
         if hatena_id == "":
             return []
-        max_page = self.count_bookmark_page(hatena_id, option)
+        try:
+            max_page = self.count_bookmark_page(hatena_id, option)
+        except Exception as err:
+            print(err, file=sys.stderr)
+            max_page = 0
 
         if max_page > 10:
             # 最大200件まで取得するようにする
