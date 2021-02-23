@@ -9,6 +9,7 @@ import sys
 
 from domain import user
 from manager import word, article
+import pb.learner.learner_pb2 as learner_pb2
 from util import word as wd
 from util import wc
 
@@ -141,7 +142,7 @@ class Bookmark:
             entries += d['entries']
         return entries
 
-    def get_suggestion(self, hatena_id: str, option: str) -> list[dict[str, str]]:
+    def get_suggestions(self, hatena_id: str, option: str) -> list[dict[str, str]]:
         if hatena_id == "":
             return ""
         dic = {}
@@ -152,7 +153,7 @@ class Bookmark:
         w = word.find_word(hatena_id)
         if len(w) == 0:
             # 検索結果が0だったら何もしない
-            return [dict(link="", title="タイトル", score="データがありません")]
+            return [self.create_suggestion_model(link="", title="学習を行ってください", score=0)]
         for entry in entries:
             noun = wd.get_noun(entry['title'])
             dic.setdefault(entry['link'], 0)
@@ -160,9 +161,7 @@ class Bookmark:
                 if n in w:
                     dic[entry['link']] += w[n]
 
-            data.append(
-                dict(link=entry['link'], title=entry['title'], score=dic[entry['link']]))
-
+            data.append(self.create_suggestion_model(link=entry['link'], title=entry['title'], score=dic[entry['link']]))
         return data
 
     def update_wordcloud(self, hatena_id: str) -> bytes:
@@ -173,3 +172,10 @@ class Bookmark:
         wordcloud = b64encode(output.getvalue())
         user.update_wordcloud(hatena_id, wordcloud)
         return wordcloud
+
+    def create_suggestion_model(self, link: str, title: str, score: str) -> learner_pb2.Suggestion():
+        suggestion = learner_pb2.Suggestion()
+        suggestion.link = link
+        suggestion.title = title
+        suggestion.score = score
+        return suggestion

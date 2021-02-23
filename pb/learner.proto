@@ -4,6 +4,7 @@ package learner;
 
 service Learner {
   rpc Learn (LearnRequest) returns (LearnReply) {}
+  rpc GetSuggestion (GetSuggestionRequest) returns (GetSuggestionReply) {}
   rpc CreateWordCloud (CreateWordCloudRequest) returns (CreateWordCloudReply) {}
 }
 
@@ -24,4 +25,18 @@ message CreateWordCloudRequest {
 // The response message containing the wordcloud images
 message CreateWordCloudReply {
   bytes wordcloud = 1;
+}
+
+message GetSuggestionRequest {
+  string hatena_id = 1;
+}
+
+message Suggestion {
+  string link = 1;
+  string title = 2;
+  uint32 score = 3;
+}
+
+message GetSuggestionReply {
+  repeated Suggestion suggestions = 1;
 }

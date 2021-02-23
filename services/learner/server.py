@@ -15,6 +15,5 @@ def serve():
 
 
 if __name__ == '__main__':
-    print("server run!!")
     logging.basicConfig()
     serve()

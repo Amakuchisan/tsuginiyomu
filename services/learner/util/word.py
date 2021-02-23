@@ -4,7 +4,7 @@ import neologdn
 import regex
 import requests
 from time import sleep
-from urllib.robotparser import RobotFileParser
+from my_urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse
 
 # 名詞を取得
