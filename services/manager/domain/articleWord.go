@@ -12,14 +12,14 @@ type ArticleWord struct {
 	ID        ID        `db:"id"`
 	ArticleID ArticleID `db:"article_id"`
 	WordID    WordID    `db:"word_id"`
-	Count     uint32    `db:"word_count"`
+	Count     float64    `db:"word_count"`
 }
 
 // CreateArticleWordInput はArticleWord作成時の入力
 type CreateArticleWordInput struct {
 	ArticleID ArticleID
 	WordID    WordID
-	Count     uint32
+	Count     float64
 }
 
 // ArticleWordRepository はArticleWordのリポジトリ
@@ -29,7 +29,7 @@ type ArticleWordRepository interface {
 }
 
 // CreateArticleWord は記事と単語の関係を作成する
-func CreateArticleWord(articleID ArticleID, wordCount map[string]uint32) func(ctx context.Context, r Repository) error {
+func CreateArticleWord(articleID ArticleID, wordCount map[string]float64) func(ctx context.Context, r Repository) error {
 	return func(ctx context.Context, r Repository) error {
 		for noun, count := range wordCount {
 			word, err := r.Word().FindByName(ctx, noun)

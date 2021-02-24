@@ -92,13 +92,16 @@ def get_retry(url, retry_times, errs):
 
 
 def create_dict_from_list(word_list: list[str]) -> dict[str, int]:
-    dict = {}
+    dic = {}
+    d = {}
     for word in word_list:
-        if word not in dict:
-            dict.setdefault(word, 1)
+        if word not in dic:
+            dic.setdefault(word, 1)
         else:
-            dict[word] += 1
-    return dict
+            dic[word] += 1
+    for k, v in dic.items():
+        d[k] = v/sum(dic.values())
+    return d
 
 
 def get_n_dict(dic: dict[str, int], n: int) -> dict[str, int]:
