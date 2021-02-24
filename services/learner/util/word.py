@@ -101,7 +101,16 @@ def create_dict_from_list(word_list: list[str]) -> dict[str, int]:
             dic[word] += 1
     for k, v in dic.items():
         d[k] = v/sum(dic.values())
+    # return dic
     return d
+
+
+# def get_n_dict(dic: dict[str, int], n: int) -> dict[str, int]:
+#     n_tuple = sorted(dic.items(), key=lambda x: x[1], reverse=True)
+#     d = dict(n_tuple[:n])
+#     for k, v in d.items():
+#         d[k] = v/sum(d.values())
+#     return d
 
 
 def get_n_dict(dic: dict[str, int], n: int) -> dict[str, int]:
