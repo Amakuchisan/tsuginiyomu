@@ -10,16 +10,16 @@ app.secret_key = os.urandom(24)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    hatena_id = ""
-    entries = []
-    image = None
     if request.method == 'GET':
+        hatena_id = ""
+        entries = []
+        image = None
         if 'hatena_id' in session:
             hatena_id = session['hatena_id']
             u = manager.create_user(session['hatena_id'])
             if u.wordcloud:
-                image = u.wordcloud.decode("utf-8")
-            entries = sorted(learner.get_suggestion(session['hatena_id']),
+                image = u.wordcloud.decode('utf-8')
+            entries = sorted(learner.get_suggestion(hatena_id),
                         key=lambda x: x.score, reverse=True)
         return render_template("index.html", hatena_id=hatena_id, entries=entries, image=image)
 
