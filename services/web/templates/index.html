@@ -17,7 +17,7 @@
     <table border="1">
         <tr>
             <th>タイトル</th>
-            <th>興味ありそう度</th>
+            <th>オススメ度</th>
         </tr>
         {% for entry in entries %}
         <tr>
@@ -31,7 +31,7 @@
 
 
 <h2>WordCloudを作成する</h2>
-<p>WordCloudを作成して、あなたの興味を可視化しよう</p>
+<p>WordCloudを作成して、あなたのブックマークを可視化しよう</p>
 
 <form method="POST" action="/wordcloud">
     <input type="submit" id="updateWordCloud" value="画像を更新する">
