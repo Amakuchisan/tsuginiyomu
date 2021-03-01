@@ -9,10 +9,13 @@ services:
       TZ: Japan
     build:
       context: services/web/
+    volumes:
+      - ./services/web/src:/web/src
+      - ./services/web/public:/web/public
     ports:
-      - "50052:5000"
+      - "3000:3000"
     depends_on:
-      - learner
+      - proxy
 
   learner:
     container_name: ty-learner-container
@@ -56,3 +59,25 @@ services:
       retries: 10 
     volumes:
       - ./db:/docker-entrypoint-initdb.d
+
+  proxy:
+    container_name: ty-proxy-container
+    build: ./proxy
+    ports:
+      - "8080:8080"
+    depends_on:
+      - learner
+      - manager
+
+  flask-web:
+    container_name: ty-flask-web-container
+    tty: true
+    stdin_open: true
+    environment:
+      TZ: Japan
+    build:
+      context: services/flask-web/
+    ports:
+      - "5000:5000"
+    depends_on:
+      - learner
