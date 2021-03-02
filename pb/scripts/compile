@@ -2,7 +2,7 @@
 
 set -eux
 
-cd /home/amuamu/go/src/github.com/Amakuchisan/tsuginiyomu/pb/
+cd ~/go/src/github.com/Amakuchisan/tsuginiyomu/pb/
 
 docker build protoc-go -t tsuginiyomu-protoc-go
 docker build protoc-python -t tsuginiyomu-protoc-python
