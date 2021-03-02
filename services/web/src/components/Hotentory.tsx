@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { HatenaIDContext } from '../App';
+// import { HatenaIDContext } from '../App';
 
 export const Hotentory = () => {
-    const HatenaID = useContext(HatenaIDContext)
+    // const HatenaID = useContext(HatenaIDContext)
     //   const [HatenaID, setHatenaID] = useState('sample');
     //   const [message, setMessage] = useState('');
 

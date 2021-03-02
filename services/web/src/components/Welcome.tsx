@@ -5,13 +5,13 @@ import { UserContext } from '../App';
 
 export const Welcome = () => {
   const { user, setUser } = useContext(UserContext)
-  const [message, setMessage] = useState('');
+  const [inputText, setInputText] = useState('');
 
   const onClick = () => {
     const request = new CreateUserRequest();
-    request.setHatenaid(user.inputText);
+    request.setHatenaid(inputText);
 
-    const client = new ManagerClient(`http://${window.location.hostname}:8080`, {}, {});
+    const client = new ManagerClient(`http://${window.location.hostname}:8080/manager`, {}, {});
     console.log("createUser")
     client.createUser(request, {}, (err, ret) => {
       if (err || ret === null) {
@@ -22,7 +22,7 @@ export const Welcome = () => {
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, inputText: e.target.value });
+    setInputText(e.target.value);
   };
 
   return (
@@ -31,12 +31,11 @@ export const Welcome = () => {
         はてなID :&nbsp;
           <input
           type="text"
-          value={user.inputText}
+          value={inputText}
           onChange={onChange}
         />
 
         <button onClick={onClick}>Send</button>
-        <p>{message}</p>
       </div>
     </header>
   )

@@ -49,6 +49,11 @@ docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-web \
     --js_out=import_style=commonjs:js/manager \
     --grpc-web_out=import_style=typescript,mode=grpcwebtext:js/manager
 
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-web \
+  protoc --proto_path=. learner.proto \
+    --js_out=import_style=commonjs:js/learner \
+    --grpc-web_out=import_style=typescript,mode=grpcwebtext:js/learner
+
 sed -i -e "s/import manager_pb2 as manager__pb2/from . import manager_pb2 as manager__pb2/g" python/manager/manager_pb2_grpc.py
 
 mkdir -p ../services/manager/pb
@@ -58,7 +63,7 @@ cp -r ./go/manager ../services/evaluator/pb
 cp -r ./go/evaluator ../services/evaluator/pb
 cp -r ./go/manager ../services/manager/pb
 cp -r ./python/learner ../services/learner/pb
-cp -r ./js ../services/web/src/pb
+cp -r ./js/* ../services/web/src/pb
 cp -r ./python/manager ../services/learner/pb
 # cp -r ./js/learner ../services/web/src/pb
 
