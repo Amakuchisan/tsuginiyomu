@@ -12,6 +12,7 @@ import 'react-tabs/style/react-tabs.css';
 type User = {
   inputText: string,
   HatenaID: string,
+  wordcloud: string,
 };
 
 type initialContext = {
@@ -22,10 +23,12 @@ type initialContext = {
 const initialValue = {
   inputText: '',
   HatenaID: '',
+  wordcloud: '',
 };
 
 export const UserContext = React.createContext({} as initialContext)
-export const HatenaIDContext = React.createContext('' as User["HatenaID"])
+// export const HatenaIDContext = React.createContext('' as User["HatenaID"])
+export const HatenaIDContext = React.createContext(['' as User["HatenaID"], '' as User["wordcloud"]])
 
 function App() {
   const [user, setUser] = useState<User>(initialValue);
@@ -50,7 +53,7 @@ function App() {
         </Tabs>
         {/* react-tab */}
       </div>
-      <HatenaIDContext.Provider value={user.HatenaID}>
+      <HatenaIDContext.Provider value={[user.HatenaID, user.wordcloud]}>
         <Wordcloud />
       </HatenaIDContext.Provider>
     </div>

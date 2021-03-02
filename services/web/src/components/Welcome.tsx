@@ -6,7 +6,6 @@ import { UserContext } from '../App';
 export const Welcome = () => {
   const { user, setUser } = useContext(UserContext)
   const [message, setMessage] = useState('');
-  const [wordcloud, setWordcloud] = useState("");
 
   const onClick = () => {
     const request = new CreateUserRequest();
@@ -18,10 +17,7 @@ export const Welcome = () => {
       if (err || ret === null) {
         throw err;
       }
-      setUser({ ...user, HatenaID: ret.getHatenaid() });
-      const img = ret.getWordcloud_asB64()
-      console.log(img)
-      setWordcloud(window.atob(img))
+      setUser({ ...user, HatenaID: ret.getHatenaid(), wordcloud: window.atob(ret.getWordcloud_asB64()) });
     });
   };
 
@@ -41,11 +37,6 @@ export const Welcome = () => {
 
         <button onClick={onClick}>Send</button>
         <p>{message}</p>
-        {wordcloud && (
-          <div className="wordcloud">
-            <img src={`data:;image/png;base64,${wordcloud}`} alt="wordcloud" />
-          </div>
-        )}
       </div>
     </header>
   )

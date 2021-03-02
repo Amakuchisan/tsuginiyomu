@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { HatenaIDContext } from '../App';
 
 export const Wordcloud = () => {
-    const HatenaID = useContext(HatenaIDContext)
+    const [HatenaID, wordcloud] = useContext(HatenaIDContext)
     //   const [HatenaID, setHatenaID] = useState('sample');
     //   const [message, setMessage] = useState('');
 
@@ -16,6 +16,11 @@ export const Wordcloud = () => {
             <h3>{HatenaID}</h3>
 
             <button onClick={onClick}>画像を更新する</button>
+            {wordcloud && (
+                <div className="wordcloud">
+                    <img src={`data:;image/png;base64,${wordcloud}`} alt="wordcloud" />
+                </div>
+            )}
         </header>
     )
 }
