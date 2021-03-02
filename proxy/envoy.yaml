@@ -23,7 +23,7 @@ static_resources:
               routes:
               - match: { prefix: "/" }
                 route:
-                  cluster: echo_service
+                  cluster: manager_service
                   max_stream_duration:
                     grpc_timeout_header_max: 0s
               cors:
@@ -38,7 +38,7 @@ static_resources:
           - name: envoy.filters.http.cors
           - name: envoy.filters.http.router
   clusters:
-  - name: echo_service
+  - name: manager_service
     connect_timeout: 0.25s
     type: logical_dns
     http2_protocol_options: {}
@@ -50,5 +50,5 @@ static_resources:
             - endpoint:
                 address:
                   socket_address:
-                    address: server
-                    port_value: 9090
+                    address: manager
+                    port_value: 50051
