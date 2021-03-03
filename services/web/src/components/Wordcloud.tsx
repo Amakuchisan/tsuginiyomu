@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { CreateWordCloudRequest } from "../pb/learner/learner_pb";
 import { LearnerClient } from "../pb/learner/LearnerServiceClientPb";
-import { WordcloudContext } from '../App';
-import userEvent from '@testing-library/user-event';
+import { UserContext } from '../App';
 
 export const Wordcloud = () => {
-    const { user, setWordcloud } = useContext(WordcloudContext)
+    const { user, setUser } = useContext(UserContext);
 
     const updateWordcloud = () => {
         const request = new CreateWordCloudRequest();
@@ -18,7 +17,8 @@ export const Wordcloud = () => {
                 if (err || ret === null) {
                     throw err;
                 }
-                setWordcloud(window.atob(ret.getWordcloud_asB64()))
+                const wordcloud = window.atob(ret.getWordcloud_asB64());
+                setUser({...user, wordcloud: wordcloud});
             });
         }
     }
@@ -32,10 +32,10 @@ export const Wordcloud = () => {
 
             <button onClick={onClick}>画像を更新する</button>
             {user.wordcloud && (
-                <div className="wordcloud">
+                <div className="image">
                     <img src={`data:;image/png;base64,${user.wordcloud}`} alt="wordcloud" />
                 </div>
-            )};
+            )}
         </header>
     )
 }

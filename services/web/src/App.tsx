@@ -9,14 +9,9 @@ import { Wordcloud } from './components/Wordcloud'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-type User = {
+export type User = {
   HatenaID: string,
   wordcloud: string,
-};
-
-type initialContext = {
-  user: User,
-  setUser: React.Dispatch<React.SetStateAction<User>>
 };
 
 const initialUserValue = {
@@ -24,18 +19,15 @@ const initialUserValue = {
   wordcloud: '',
 };
 
-type wordcloudContext = {
+type initialContext = {
   user: User,
-  setWordcloud: React.Dispatch<React.SetStateAction<User['wordcloud']>>
+  setUser: React.Dispatch<React.SetStateAction<User>>
 };
 
 export const UserContext = React.createContext({} as initialContext)
-// export const HatenaIDContext = React.createContext('' as User["HatenaID"])
-export const WordcloudContext = React.createContext({} as wordcloudContext)
 
 function App() {
   const [user, setUser] = useState<User>(initialUserValue);
-  const [wordcloud, setWordcloud] = useState<string>("");
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
@@ -57,10 +49,9 @@ function App() {
         </Tabs>
         {/* react-tab */}
       </div>
-      {/* <HatenaIDContext.Provider value={[user.HatenaID, user.wordcloud]}> */}
-      <WordcloudContext.Provider value={{user, setWordcloud}}>
+      <UserContext.Provider value={{ user, setUser }}>
         <Wordcloud />
-      </WordcloudContext.Provider>
+      </UserContext.Provider>
     </div>
   );
 }
