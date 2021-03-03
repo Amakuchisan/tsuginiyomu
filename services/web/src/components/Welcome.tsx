@@ -12,7 +12,6 @@ export const Welcome = () => {
     request.setHatenaid(inputText);
 
     const client = new ManagerClient(`http://${window.location.hostname}:8080/manager`, {}, {});
-    console.log("createUser")
     client.createUser(request, {}, (err, ret) => {
       if (err || ret === null) {
         throw err;
