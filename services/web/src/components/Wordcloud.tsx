@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { CreateWordCloudRequest } from "../pb/learner/learner_pb";
 import { LearnerClient } from "../pb/learner/LearnerServiceClientPb";
