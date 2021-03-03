@@ -20,6 +20,11 @@ $ git clone https://github.com/Amakuchisan/tsuginiyomu.git
 $ cd tsuginiyomu
 ```
 
+## 事前準備
+
+services/learner/.fonts/NotoSansCJKjp-Regular.otfを用意する。  
+もしくは、代わりのフォントを用意し、services/learner/Dockerfileのフォントファイル名を変更する。
+
 ## run
 
 ```
