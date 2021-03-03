@@ -18,7 +18,7 @@ export const Wordcloud = () => {
                     throw err;
                 }
                 const wordcloud = window.atob(ret.getWordcloud_asB64());
-                setUser({...user, wordcloud: wordcloud});
+                setUser({ ...user, wordcloud: wordcloud });
             });
         }
     }
@@ -28,12 +28,15 @@ export const Wordcloud = () => {
 
     return (
         <header className="wordcloud">
-            <h2>{user.HatenaID}さんのワードクラウドを作成する</h2>
-
-            <button onClick={onClick}>画像を更新する</button>
-            {user.wordcloud && (
-                <div className="image">
-                    <img src={`data:;image/png;base64,${user.wordcloud}`} alt="wordcloud" />
+            { user.HatenaID && (
+                <div>
+                    <h2>{user.HatenaID}さんのワードクラウドを作成する</h2>
+                    <button onClick={onClick}>画像を更新する</button>
+                    {user.wordcloud && (
+                        <div className="image">
+                            <img src={`data:;image/png;base64,${user.wordcloud}`} alt="wordcloud" />
+                        </div>
+                    )}
                 </div>
             )}
         </header>
