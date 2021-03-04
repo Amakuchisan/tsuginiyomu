@@ -11,10 +11,6 @@ class Learner(learner_pb2_grpc.LearnerServicer):
         learned = self.bookmark.learn(request.hatena_id)
         return learner_pb2.LearnReply(learned=learned)
 
-    def CreateWordCloud(self, request, context):
-        wordcloud = self.bookmark.update_wordcloud(request.hatena_id)
-        return learner_pb2.CreateWordCloudReply(wordcloud=wordcloud)
-
     def GetSuggestion(self, request, context):
         suggestions = self.bookmark.get_suggestions(request.hatena_id, "tag=あとで読む&")
         return learner_pb2.GetSuggestionReply(suggestions=suggestions)

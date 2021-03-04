@@ -26,6 +26,7 @@ docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-go \
 
 mkdir -p python/learner
 mkdir -p python/manager
+mkdir -p python/wordcloud
 
 docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-python \
   python -m grpc_tools.protoc -I. \
@@ -43,6 +44,7 @@ docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-python \
 
 mkdir -p js/manager
 mkdir -p js/learner
+mkdir -p js/wordcloud
 
 docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-web \
   protoc --proto_path=. manager.proto \
@@ -54,17 +56,33 @@ docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-web \
     --js_out=import_style=commonjs:js/learner \
     --grpc-web_out=import_style=typescript,mode=grpcwebtext:js/learner
 
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-web \
+  protoc --proto_path=. wordcloud.proto \
+    --js_out=import_style=commonjs:js/wordcloud \
+    --grpc-web_out=import_style=typescript,mode=grpcwebtext:js/wordcloud
+
 sed -i -e "s/import manager_pb2 as manager__pb2/from . import manager_pb2 as manager__pb2/g" python/manager/manager_pb2_grpc.py
+
+docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-python \
+  python -m grpc_tools.protoc -I. \
+    --python_out=python/wordcloud \
+    --grpc_python_out=python/wordcloud \
+    wordcloud.proto
+
+sed -i -e "s/import wordcloud_pb2 as wordcloud__pb2/from . import wordcloud_pb2 as wordcloud__pb2/g" python/wordcloud/wordcloud_pb2_grpc.py
 
 mkdir -p ../services/manager/pb
 mkdir -p ../services/learner/pb
 mkdir -p ../services/evaluator/pb
+mkdir -p ../services/wordcloud/pb
 cp -r ./go/manager ../services/evaluator/pb
 cp -r ./go/evaluator ../services/evaluator/pb
 cp -r ./go/manager ../services/manager/pb
-cp -r ./python/learner ../services/learner/pb
 cp -r ./js/* ../services/web/src/pb
+cp -r ./python/learner ../services/learner/pb
 cp -r ./python/manager ../services/learner/pb
+cp -r ./python/manager ../services/wordcloud/pb
+cp -r ./python/wordcloud ../services/wordcloud/pb
 # cp -r ./js/learner ../services/web/src/pb
 
 # protoc evaluator.proto --go_out=plugins=grpc:go/evaluator --go_opt=paths=source_relative

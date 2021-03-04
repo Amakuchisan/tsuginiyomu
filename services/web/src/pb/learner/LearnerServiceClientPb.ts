@@ -115,46 +115,6 @@ export class LearnerClient {
     this.methodInfoGetSuggestion);
   }
 
-  methodInfoCreateWordCloud = new grpcWeb.AbstractClientBase.MethodInfo(
-    learner_pb.CreateWordCloudReply,
-    (request: learner_pb.CreateWordCloudRequest) => {
-      return request.serializeBinary();
-    },
-    learner_pb.CreateWordCloudReply.deserializeBinary
-  );
-
-  createWordCloud(
-    request: learner_pb.CreateWordCloudRequest,
-    metadata: grpcWeb.Metadata | null): Promise<learner_pb.CreateWordCloudReply>;
-
-  createWordCloud(
-    request: learner_pb.CreateWordCloudRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: learner_pb.CreateWordCloudReply) => void): grpcWeb.ClientReadableStream<learner_pb.CreateWordCloudReply>;
-
-  createWordCloud(
-    request: learner_pb.CreateWordCloudRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
-               response: learner_pb.CreateWordCloudReply) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        this.hostname_ +
-          '/learner.Learner/CreateWordCloud',
-        request,
-        metadata || {},
-        this.methodInfoCreateWordCloud,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/learner.Learner/CreateWordCloud',
-    request,
-    metadata || {},
-    this.methodInfoCreateWordCloud);
-  }
-
   methodInfoExistsHatenaID = new grpcWeb.AbstractClientBase.MethodInfo(
     learner_pb.ExistsHatenaIDReply,
     (request: learner_pb.ExistsHatenaIDRequest) => {

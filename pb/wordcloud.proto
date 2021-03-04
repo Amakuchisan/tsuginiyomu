@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package wordcloud;
+
+service Wordcloud {
+  rpc CreateWordCloud (CreateWordCloudRequest) returns (CreateWordCloudReply) {}
+}
+
+// The request message containing the user's hatenaID.
+message CreateWordCloudRequest {
+  string hatena_id = 1;
+}
+
+// The response message containing the wordcloud images
+message CreateWordCloudReply {
+  bytes wordcloud = 1;
+}

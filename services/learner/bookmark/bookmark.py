@@ -6,10 +6,9 @@ import re
 import requests
 import sys
 
-from manager import user, word, article
+from manager import word, article
 import pb.learner.learner_pb2 as learner_pb2
 from util import word as wd
-from util import wc
 
 class Bookmark:
     # 公開しているブックマークの数を求める
@@ -138,15 +137,6 @@ class Bookmark:
 
             data.append(self.create_suggestion_model(link=entry['link'], title=entry['title'], score=dic[entry['link']]))
         return data
-
-    def update_wordcloud(self, hatena_id: str) -> bytes:
-        titles = self.get_title(hatena_id)
-        output = io.BytesIO()
-        wc.create_wordcloud(wd.get_noun(' '.join(titles))
-                            ).save(output, format='PNG')
-        wordcloud = b64encode(output.getvalue())
-        user.update_wordcloud(hatena_id, wordcloud)
-        return wordcloud
 
     def create_suggestion_model(self, link: str, title: str, score: str) -> learner_pb2.Suggestion():
         suggestion = learner_pb2.Suggestion()
