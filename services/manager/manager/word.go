@@ -9,7 +9,7 @@ import (
 )
 
 // CreateWord は単語の登録を行う
-func (m *Manager) CreateWord(ctx context.Context, wordCount map[string]uint32) ([]string, error) {
+func (m *Manager) CreateWord(ctx context.Context, wordCount map[string]float64) ([]string, error) {
 	repo := repository.NewRepository(m.db)
 	word, err := domain.CreateWord(wordCount)(ctx, repo)
 	if err != nil {
@@ -19,7 +19,7 @@ func (m *Manager) CreateWord(ctx context.Context, wordCount map[string]uint32) (
 }
 
 // GetWord はDBから単語の取得を行う
-func (m *Manager) GetWord(ctx context.Context, hatenaID string) (map[string]uint32, error) {
+func (m *Manager) GetWord(ctx context.Context, hatenaID string) (map[string]float64, error) {
 	repo := repository.NewRepository(m.db)
 	wordCount, err := domain.GetWord(hatenaID)(ctx, repo)
 	if err != nil {

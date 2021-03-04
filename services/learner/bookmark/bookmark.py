@@ -1,4 +1,5 @@
 from base64 import b64encode
+import collections
 import feedparser
 import io
 import math
@@ -18,17 +19,35 @@ class Bookmark:
 
     def learn(self, hatena_id: str) -> bool:
         articles = []
-        url_list = article.create(hatena_id, self.get_url(hatena_id)) # DBに新規に登録したURLを取得
+        entries = self.get_user_entries(hatena_id)
+        url_list = article.create(hatena_id, [entry['link'] for entry in entries]) # DBに新規に登録したURLを取得
         for url in url_list:
             html = wd.get_body_from_URL(url)
             if not html :
                 continue # htmlが空だったら、次のurlへ
 
             noun = wd.get_noun(html)
+            # 登場回数が多い順に2件取得
+            c = collections.Counter(noun)
+            dic = dict(c.most_common(2)) # list -> dict
+            # 記事のタイトルを取得
+            title = self.get_title_by_url(url, entries)
             # 登場回数が多い順に3件取得
-            dic = wd.get_n_dict(wd.create_dict_from_list(noun), 3)
-            articles.append(article.createArticleModel(url, dic))
+            title_noun = dict(collections.Counter(wd.get_noun(title)).most_common(3))
+
+            # トップの単語の割合を計算
+            s = sum(dic.values())
+            d = {}
+            for k, v in dic.items():
+                d[k] = v/s
+            d = dict(collections.Counter(title_noun)+collections.Counter(d))
+            articles.append(article.createArticleModel(url, d))
         return word.create(articles)
+
+    def get_title_by_url(self, url, entries):
+        # タイトルが見つからなければ、直接URLにアクセスして取得する
+        values = [x['title'] for x in entries if 'link' in x and 'title' in x and x['link'] == url]
+        return values[0] if values else wd.get_title_by_url(url)
 
     def count_bookmark_page(self, hatena_id: str, option: str = '') -> int:
         data = requests.get(
@@ -68,32 +87,6 @@ class Bookmark:
             for entry in entries:
                 titles.append(entry['title'])
         return titles
-
-    # optionには追加のクエリパラメータを記述
-    def get_url(self, hatena_id: str, option: str = '') -> list[str]:
-        # 1ページに20件のデータがある。ページ数を求める
-        if hatena_id == "":
-            return []
-        try:
-            max_page = self.count_bookmark_page(hatena_id, option)
-        except Exception as err:
-            print(err, file=sys.stderr)
-            max_page = 0
-
-        if max_page > 10:
-            # 最大200件まで取得するようにする
-            max_page = 10
-
-        links = []
-
-        for i in range(max_page):
-            data = requests.get(
-                'https://b.hatena.ne.jp/{}/bookmark.rss?{}page={}'.format(hatena_id, option, i+1))
-            d = feedparser.parse(data.text)
-            entries = d['entries']
-            for entry in entries:
-                links.append(entry['link'])
-        return links
 
     def get_user_entries(self, hatena_id: str, option: str = '') -> list[feedparser.util.FeedParserDict]:
         # 1ページに20件のデータがある。ページ数を求める

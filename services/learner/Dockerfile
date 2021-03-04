@@ -4,7 +4,7 @@ WORKDIR /work
 
 # mecabとmecab-ipadic-NEologdの導入
 RUN apt-get update \
-    && apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git gcc g++ make curl xz-utils file sudo
+    && apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 git make curl xz-utils file sudo gcc g++
 
 RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
     && cd mecab-ipadic-neologd \

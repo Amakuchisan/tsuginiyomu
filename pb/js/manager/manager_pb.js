@@ -990,7 +990,7 @@ proto.manager.Article.deserializeBinaryFromReader = function(msg, reader) {
     case 2:
       var value = msg.getWordCountMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readUint32, null, "", 0);
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readDouble, null, "", 0.0);
          });
       break;
     default:
@@ -1031,7 +1031,7 @@ proto.manager.Article.serializeBinaryToWriter = function(message, writer) {
   }
   f = message.getWordCountMap(true);
   if (f && f.getLength() > 0) {
-    f.serializeBinary(2, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeUint32);
+    f.serializeBinary(2, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeDouble);
   }
 };
 
@@ -1055,7 +1055,7 @@ proto.manager.Article.prototype.setUrl = function(value) {
 
 
 /**
- * map<string, uint32> word_count = 2;
+ * map<string, double> word_count = 2;
  * @param {boolean=} opt_noLazyCreate Do not create the map if
  * empty, instead returning `undefined`
  * @return {!jspb.Map<string,number>}
@@ -1936,7 +1936,7 @@ proto.manager.GetWordReply.deserializeBinaryFromReader = function(msg, reader) {
     case 1:
       var value = msg.getWordcountMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readUint32, null, "", 0);
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readDouble, null, "", 0.0);
          });
       break;
     default:
@@ -1970,13 +1970,13 @@ proto.manager.GetWordReply.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getWordcountMap(true);
   if (f && f.getLength() > 0) {
-    f.serializeBinary(1, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeUint32);
+    f.serializeBinary(1, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeDouble);
   }
 };
 
 
 /**
- * map<string, uint32> wordCount = 1;
+ * map<string, double> wordCount = 1;
  * @param {boolean=} opt_noLazyCreate Do not create the map if
  * empty, instead returning `undefined`
  * @return {!jspb.Map<string,number>}

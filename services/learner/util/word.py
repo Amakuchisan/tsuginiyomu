@@ -4,15 +4,14 @@ import neologdn
 import regex
 import requests
 from time import sleep
+
 from my_urllib.robotparser import RobotFileParser
 from urllib.parse import urlparse
+from stop_words import stop_words as stop
 
 # 名詞を取得
-
-
 def get_noun(text: str) -> list[str]:
-    stop_words = ['もの', 'こと', 'とき', 'そう', 'たち', 'これ', 'よう', 'これら', 'それ', 'すべて', '一つ', '二つ', '三つ',
-                  'Qiita', 'note', 'Speaker Deck', 'まとめ', 'コリス', 'blog']
+    stop_words = stop.get()
     # 形態素解析
     tagger = MeCab.Tagger(
         '-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd'
@@ -66,7 +65,7 @@ def get_body_from_URL(url: str) -> str:
     return strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
 
 
-def allow_robots_txt(url: str):
+def allow_robots_txt(url: str) -> bool:
     rp = RobotFileParser()
     try:
         rp.set_url("{0.scheme}://{0.netloc}/robots.txt".format(urlparse(url)))
@@ -90,17 +89,12 @@ def get_retry(url, retry_times, errs):
                 continue
         return r
 
-
-def create_dict_from_list(word_list: list[str]) -> dict[str, int]:
-    dict = {}
-    for word in word_list:
-        if word not in dict:
-            dict.setdefault(word, 1)
-        else:
-            dict[word] += 1
-    return dict
-
-
-def get_n_dict(dic: dict[str, int], n: int) -> dict[str, int]:
-    n_dic = sorted(dic.items(), key=lambda x: x[1], reverse=True)
-    return dict(n_dic[:n])
+def get_title_by_url(url: str) -> str:
+    try:
+        res = requests.get(url)
+        soup = BeautifulSoup(res.content, "html.parser")
+    except Exception as e:
+        print(url, e)
+        return ""
+    #タイトル取得
+    return soup.title.string
