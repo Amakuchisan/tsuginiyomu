@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { CreateWordCloudRequest } from "../pb/learner/learner_pb";
-import { LearnerClient } from "../pb/learner/LearnerServiceClientPb";
+import { CreateWordCloudRequest } from "../pb/wordcloud/wordcloud_pb";
+import { WordcloudClient } from "../pb/wordcloud/WordcloudServiceClientPb";
 import { UserContext } from '../App';
 
 export const Wordcloud = () => {
@@ -12,7 +12,8 @@ export const Wordcloud = () => {
         if (user.HatenaID) {
             request.setHatenaId(user.HatenaID);
 
-            const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
+            const client = new WordcloudClient(`http://${window.location.hostname}:8080/wordcloud`, {}, {});
+            console.log(client)
             client.createWordCloud(request, {}, (err, ret) => {
                 if (err || ret === null) {
                     throw err;

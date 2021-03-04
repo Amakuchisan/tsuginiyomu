@@ -1,4 +1,3 @@
-import MeCab
 import os
 from wordcloud import WordCloud
 

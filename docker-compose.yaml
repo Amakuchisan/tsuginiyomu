@@ -44,6 +44,19 @@ services:
     depends_on:
       - db
 
+  wordcloud:
+    container_name: ty-wordcloud-container
+    tty: true
+    stdin_open: true
+    environment:
+      TZ: Japan
+    build:
+      context: services/wordcloud/
+    ports:
+      - "50052:50052"
+    depends_on:
+      - manager
+
   db:
     container_name: ty-mysql-container
     image: mysql:8.0.20

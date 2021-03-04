@@ -21,18 +21,24 @@ static_resources:
             - name: local_service
               domains: ["*"]
               routes:
-              - match: { prefix: "/manager/" }
-                route:
-                  prefix_rewrite: "/"
-                  cluster: manager
-                  max_stream_duration:
-                    grpc_timeout_header_max: 0s
               - match: { prefix: "/learner/" }
                 route:
                   prefix_rewrite: "/"
                   cluster: learner
                   max_stream_duration:
                     grpc_timeout_header_max: 5s
+              - match: { prefix: "/manager/" }
+                route:
+                  prefix_rewrite: "/"
+                  cluster: manager
+                  max_stream_duration:
+                    grpc_timeout_header_max: 0s
+              - match: { prefix: "/wordcloud/" }
+                route:
+                  prefix_rewrite: "/"
+                  cluster: wordcloud
+                  max_stream_duration:
+                    grpc_timeout_header_max: 0s
               cors:
                 allow_origin_string_match:
                 - prefix: "*"
@@ -45,21 +51,6 @@ static_resources:
           - name: envoy.filters.http.cors
           - name: envoy.filters.http.router
   clusters:
-  - name: manager
-    connect_timeout: 0.25s
-    type: logical_dns
-    http2_protocol_options: {}
-    lb_policy: round_robin
-    load_assignment:
-      cluster_name: cluster_manager
-      endpoints:
-        - lb_endpoints:
-            - endpoint:
-                address:
-                  socket_address:
-                    address: manager
-                    port_value: 50051
-
   - name: learner
     connect_timeout: 5s
     type: logical_dns
@@ -74,3 +65,31 @@ static_resources:
                   socket_address:
                     address: learner
                     port_value: 50050
+  - name: manager
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    load_assignment:
+      cluster_name: cluster_manager
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: manager
+                    port_value: 50051
+  - name: wordcloud
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    load_assignment:
+      cluster_name: cluster_wordcloud
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: wordcloud
+                    port_value: 50052

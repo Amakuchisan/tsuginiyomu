@@ -5,7 +5,6 @@ package learner;
 service Learner {
   rpc Learn (LearnRequest) returns (LearnReply) {}
   rpc GetSuggestion (GetSuggestionRequest) returns (GetSuggestionReply) {}
-  rpc CreateWordCloud (CreateWordCloudRequest) returns (CreateWordCloudReply) {}
   rpc ExistsHatenaID (ExistsHatenaIDRequest) returns (ExistsHatenaIDReply) {}
 }
 
@@ -16,16 +15,6 @@ message LearnRequest {
 
 message LearnReply {
   bool learned = 1;
-}
-
-// The request message containing the user's hatenaID.
-message CreateWordCloudRequest {
-  string hatena_id = 1;
-}
-
-// The response message containing the wordcloud images
-message CreateWordCloudReply {
-  bytes wordcloud = 1;
 }
 
 message GetSuggestionRequest {

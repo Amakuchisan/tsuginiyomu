@@ -24,11 +24,6 @@ class LearnerStub(object):
                 request_serializer=learner__pb2.GetSuggestionRequest.SerializeToString,
                 response_deserializer=learner__pb2.GetSuggestionReply.FromString,
                 )
-        self.CreateWordCloud = channel.unary_unary(
-                '/learner.Learner/CreateWordCloud',
-                request_serializer=learner__pb2.CreateWordCloudRequest.SerializeToString,
-                response_deserializer=learner__pb2.CreateWordCloudReply.FromString,
-                )
         self.ExistsHatenaID = channel.unary_unary(
                 '/learner.Learner/ExistsHatenaID',
                 request_serializer=learner__pb2.ExistsHatenaIDRequest.SerializeToString,
@@ -46,12 +41,6 @@ class LearnerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetSuggestion(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CreateWordCloud(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -75,11 +64,6 @@ def add_LearnerServicer_to_server(servicer, server):
                     servicer.GetSuggestion,
                     request_deserializer=learner__pb2.GetSuggestionRequest.FromString,
                     response_serializer=learner__pb2.GetSuggestionReply.SerializeToString,
-            ),
-            'CreateWordCloud': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateWordCloud,
-                    request_deserializer=learner__pb2.CreateWordCloudRequest.FromString,
-                    response_serializer=learner__pb2.CreateWordCloudReply.SerializeToString,
             ),
             'ExistsHatenaID': grpc.unary_unary_rpc_method_handler(
                     servicer.ExistsHatenaID,
@@ -127,23 +111,6 @@ class Learner(object):
         return grpc.experimental.unary_unary(request, target, '/learner.Learner/GetSuggestion',
             learner__pb2.GetSuggestionRequest.SerializeToString,
             learner__pb2.GetSuggestionReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def CreateWordCloud(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/learner.Learner/CreateWordCloud',
-            learner__pb2.CreateWordCloudRequest.SerializeToString,
-            learner__pb2.CreateWordCloudReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
