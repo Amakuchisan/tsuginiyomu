@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rlearner.proto\x12\x07learner\"!\n\x0cLearnRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"\x1d\n\nLearnReply\x12\x0f\n\x07learned\x18\x01 \x01(\x08\")\n\x14GetSuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"8\n\nSuggestion\x12\x0c\n\x04link\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\r\">\n\x12GetSuggestionReply\x12(\n\x0bsuggestions\x18\x01 \x03(\x0b\x32\x13.learner.Suggestion\"*\n\x15\x45xistsHatenaIDRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"&\n\x13\x45xistsHatenaIDReply\x12\x0f\n\x07\x65xisted\x18\x01 \x01(\x08\x32\xe1\x01\n\x07Learner\x12\x35\n\x05Learn\x12\x15.learner.LearnRequest\x1a\x13.learner.LearnReply\"\x00\x12M\n\rGetSuggestion\x12\x1d.learner.GetSuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12P\n\x0e\x45xistsHatenaID\x12\x1e.learner.ExistsHatenaIDRequest\x1a\x1c.learner.ExistsHatenaIDReply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\rlearner.proto\x12\x07learner\"!\n\x0cLearnRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"\x1d\n\nLearnReply\x12\x0f\n\x07learned\x18\x01 \x01(\x08\")\n\x14GetSuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"8\n\nSuggestion\x12\x0c\n\x04link\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x01\">\n\x12GetSuggestionReply\x12(\n\x0bsuggestions\x18\x01 \x03(\x0b\x32\x13.learner.Suggestion\"*\n\x15\x45xistsHatenaIDRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"&\n\x13\x45xistsHatenaIDReply\x12\x0f\n\x07\x65xisted\x18\x01 \x01(\x08\x32\xe1\x01\n\x07Learner\x12\x35\n\x05Learn\x12\x15.learner.LearnRequest\x1a\x13.learner.LearnReply\"\x00\x12M\n\rGetSuggestion\x12\x1d.learner.GetSuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12P\n\x0e\x45xistsHatenaID\x12\x1e.learner.ExistsHatenaIDRequest\x1a\x1c.learner.ExistsHatenaIDReply\"\x00\x62\x06proto3'
 )
 
 
@@ -145,8 +145,8 @@ _SUGGESTION = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='score', full_name='learner.Suggestion.score', index=2,
-      number=3, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
+      number=3, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),

@@ -38,22 +38,13 @@ message CreateArticleReply {
 
 message Article {
   string url = 1;
-  map<string, uint32> word_count = 2;
+  map<string, double> word_count = 2;
 }
 
 // The request message containing the article.
 message CreateWordRequest {
-// string hatenaID = 1;
   repeated Article article = 1;
 }
-/*
-Article article
-{url:
-  (word, count)
-  (word, count)
-  (word, count)
-}
-*/
 
 // The response message containing the {word: count}
 message CreateWordReply {
@@ -79,5 +70,5 @@ message GetWordRequest {
 
 // The response message containing the {word.name: word.count}
 message GetWordReply {
-  map<string, uint32> wordCount = 1;
+  map<string, double> wordCount = 1;
 }

@@ -21,7 +21,7 @@ type Word struct {
 // WordCount 単語返却時の形
 type WordCount struct {
 	Name  string `db:"name"`
-	Count uint32 `db:"SUM(word_count)"`
+	Count float64 `db:"SUM(word_count)"`
 }
 
 // CreateWordInput は単語作成時の入力
@@ -37,7 +37,7 @@ type WordRepository interface {
 }
 
 // CreateWord は新規単語を作成する
-func CreateWord(wordCount map[string]uint32) func(ctx context.Context, r Repository) ([]string, error) {
+func CreateWord(wordCount map[string]float64) func(ctx context.Context, r Repository) ([]string, error) {
 	return func(ctx context.Context, r Repository) ([]string, error) {
 		nouns := []string{}
 		for noun := range wordCount {
@@ -71,8 +71,8 @@ func GetWord(hatenaID string) func(ctx context.Context, r Repository) ([]WordCou
 }
 
 // StructListToMap はWordCountの構造体をMapに変換する
-func StructListToMap(data []WordCount) map[string]uint32 {
-	m := make(map[string]uint32)
+func StructListToMap(data []WordCount) map[string]float64 {
+	m := make(map[string]float64)
 	for _, value := range data {
 		m[value.Name] = value.Count
 	}

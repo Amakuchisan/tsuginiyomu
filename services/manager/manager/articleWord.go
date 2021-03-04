@@ -8,7 +8,7 @@ import (
 )
 
 // CreateArticleWord は記事と単語の関係を登録する
-func (m *Manager) CreateArticleWord(ctx context.Context, articleID domain.ArticleID, wordCount map[string]uint32) error {
+func (m *Manager) CreateArticleWord(ctx context.Context, articleID domain.ArticleID, wordCount map[string]float64) error {
 	repo := repository.NewRepository(m.db)
 	err := domain.CreateArticleWord(articleID, wordCount)(ctx, repo)
 	if err != nil {

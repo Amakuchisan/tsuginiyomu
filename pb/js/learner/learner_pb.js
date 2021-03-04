@@ -593,7 +593,7 @@ proto.learner.Suggestion.toObject = function(includeInstance, msg) {
   var f, obj = {
     link: jspb.Message.getFieldWithDefault(msg, 1, ""),
     title: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    score: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    score: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0)
   };
 
   if (includeInstance) {
@@ -639,7 +639,7 @@ proto.learner.Suggestion.deserializeBinaryFromReader = function(msg, reader) {
       msg.setTitle(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readDouble());
       msg.setScore(value);
       break;
     default:
@@ -686,8 +686,8 @@ proto.learner.Suggestion.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getScore();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f !== 0.0) {
+    writer.writeDouble(
       3,
       f
     );
@@ -732,11 +732,11 @@ proto.learner.Suggestion.prototype.setTitle = function(value) {
 
 
 /**
- * optional uint32 score = 3;
+ * optional double score = 3;
  * @return {number}
  */
 proto.learner.Suggestion.prototype.getScore = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
 };
 
 
@@ -745,7 +745,7 @@ proto.learner.Suggestion.prototype.getScore = function() {
  * @return {!proto.learner.Suggestion} returns this
  */
 proto.learner.Suggestion.prototype.setScore = function(value) {
-  return jspb.Message.setProto3IntField(this, 3, value);
+  return jspb.Message.setProto3FloatField(this, 3, value);
 };
 
 

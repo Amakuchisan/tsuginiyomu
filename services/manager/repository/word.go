@@ -82,11 +82,3 @@ func (r *WordRepository) FindByHatenaID(ctx context.Context, hatenaID string) ([
 	}
 	return wordCount, nil
 }
-
-// `
-// 	SELECT name, word_count FROM word
-// 		join article_word on word.id=article_word.word_id
-// 		join user_article on article_word.article_id=user_article.article_id
-// 		join user on user_article.user_id=user.id
-// 		WHERE hatena_id = BINARY ?
-// `,

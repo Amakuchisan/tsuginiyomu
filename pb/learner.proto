@@ -24,7 +24,7 @@ message GetSuggestionRequest {
 message Suggestion {
   string link = 1;
   string title = 2;
-  uint32 score = 3;
+  double score = 3;
 }
 
 message GetSuggestionReply {
