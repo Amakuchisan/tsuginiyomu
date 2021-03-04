@@ -11,12 +11,6 @@ RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
     && bin/install-mecab-ipadic-neologd -n -y \
     && ln -s /etc/mecabrc /usr/local/etc/mecabrc
 
-# 環境変数にはてなIDをセット
-ENV HATENAID sample
-# 環境変数にフォントのファイル名をセット
-ENV FONTFILE NotoSansCJKjp-Regular.otf
-
-COPY .fonts .fonts
 COPY userdic userdic
 
 # ユーザ辞書の追加

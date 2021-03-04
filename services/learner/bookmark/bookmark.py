@@ -6,7 +6,7 @@ import re
 import requests
 import sys
 
-from manager import user, word, article
+from manager import word, article
 import pb.learner.learner_pb2 as learner_pb2
 from util import word as wd
 
