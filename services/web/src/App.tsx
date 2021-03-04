@@ -5,6 +5,8 @@ import { Hotentory } from './components/Hotentory'
 import { Welcome } from './components/Welcome'
 import { Wordcloud } from './components/Wordcloud'
 
+import { Suggestion } from "./pb/learner/learner_pb";
+
 // react-tabs
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -24,15 +26,28 @@ type initialContext = {
   setUser: React.Dispatch<React.SetStateAction<User>>
 };
 
+type initialEntryContext = {
+  entries: Suggestion[],
+  setEntries: React.Dispatch<React.SetStateAction<Suggestion[]>>
+};
+
 export const UserContext = React.createContext({} as initialContext)
+export const EntryContext = React.createContext({} as initialEntryContext)
 
 function App() {
   const [user, setUser] = useState<User>(initialUserValue);
+  const [entries, setEntries] = useState({} as Suggestion[]);
+
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
-        <Welcome />
+        <EntryContext.Provider value={{ entries, setEntries }}>
+          <Welcome />
+        </EntryContext.Provider>
       </UserContext.Provider>
+      {user.HatenaID && (
+        <h2>ようこそ{user.HatenaID}さん</h2>
+      )}
       <div className="Tab">
         {/* react-tab */}
         <Tabs>
@@ -41,7 +56,9 @@ function App() {
             <Tab>ホットエントリーから探す</Tab>
           </TabList>
           <TabPanel>
-            <Atodeyomu />
+            <EntryContext.Provider value={{ entries, setEntries }}>
+              <Atodeyomu HatenaID={user.HatenaID} />
+            </EntryContext.Provider>
           </TabPanel>
           <TabPanel>
             <Hotentory />
