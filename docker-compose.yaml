@@ -59,9 +59,12 @@ services:
 
   db:
     container_name: ty-mysql-container
-    image: mysql:8.0.20
-    command: mysqld --character-set-server=utf8 --default_authentication_plugin=mysql_native_password --init-connect='SET NAMES utf8mb4'
+    # image: mysql:8.0.20
+    build:
+      context: db/
+    command: mysqld --character-set-server=utf8mb4 --default_authentication_plugin=mysql_native_password --collation-server=utf8mb4_bin --init-connect='SET NAMES utf8mb4'
     environment:
+      TZ: Japan
       MYSQL_ROOT_PASSWORD: ty
       MYSQL_USER: ty
       MYSQL_PASSWORD: ty
@@ -71,7 +74,7 @@ services:
       timeout: 20s
       retries: 10 
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - ./db/init:/docker-entrypoint-initdb.d
 
   proxy:
     container_name: ty-proxy-container
