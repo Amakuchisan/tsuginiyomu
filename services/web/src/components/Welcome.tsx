@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react';
+import { UserContext } from '../App';
+import { EntryContext } from '../App';
 import { CreateUserRequest } from "../pb/manager/manager_pb";
 import { ManagerClient } from "../pb/manager/ManagerServiceClientPb";
-import { UserContext } from '../App';
+import { Suggestion } from "../pb/learner/learner_pb";
 
 export const Welcome = () => {
   const { user, setUser } = useContext(UserContext)
+  const { entries, setEntries } = useContext(EntryContext)
   const [inputText, setInputText] = useState('');
 
   const onClick = () => {
@@ -17,6 +20,7 @@ export const Welcome = () => {
         throw err;
       }
       setUser({ ...user, HatenaID: ret.getHatenaid(), wordcloud: window.atob(ret.getWordcloud_asB64()) });
+      setEntries({} as Suggestion[])
     });
   };
 
