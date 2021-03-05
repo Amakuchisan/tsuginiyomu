@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import emoji
 import MeCab
 import neologdn
 import regex
@@ -26,14 +27,16 @@ def get_noun(text: str) -> list[str]:
             if len(set(["副詞可能", "数", "非自立", "代名詞", "接尾"]) & set(node.feature.split(",")[1:4])) == 0:
                 word_list.append(node.surface)
         node = node.next
-    return list(map(lambda s: s.lower(), word_list))
-
+    words = remove_emoji(word_list)
+    return list(map(lambda s: s.lower(), words))
 
 def strip_tags(html: str) -> str:
     html = html.replace("&lt;", '<').replace("&gt;", '>')
     p = r"(?<rec><(?:[^<>]+|(?&rec))*>)"
     return regex.sub(p, '', html)
 
+def remove_emoji(word_list: list[str]) -> list[str]:
+    return list(filter(lambda x: x not in emoji.UNICODE_EMOJI['en'], word_list))
 
 def strip_url(html: str) -> str:
     p = r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+$,%#]+)"
