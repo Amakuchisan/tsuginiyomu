@@ -31,22 +31,34 @@ type initialEntryContext = {
   setEntries: React.Dispatch<React.SetStateAction<Suggestion[]>>
 };
 
+type initialHotEntryContext = {
+  hotentries: Suggestion[],
+  setHotEntries: React.Dispatch<React.SetStateAction<Suggestion[]>>
+};
+
 export const UserContext = React.createContext({} as initialContext)
 export const EntryContext = React.createContext({} as initialEntryContext)
+export const HotEntryContext = React.createContext({} as initialHotEntryContext)
 
 function App() {
   const [user, setUser] = useState<User>(initialUserValue);
   const [entries, setEntries] = useState({} as Suggestion[]);
+  const [hotentries, setHotEntries] = useState({} as Suggestion[]);
 
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
         <EntryContext.Provider value={{ entries, setEntries }}>
-          <Welcome />
+          <HotEntryContext.Provider value={{ hotentries, setHotEntries }}>
+            <Welcome />
+          </HotEntryContext.Provider>
         </EntryContext.Provider>
       </UserContext.Provider>
       {user.HatenaID && (
         <h2>ようこそ{user.HatenaID}さん</h2>
+      )}
+      {!user.HatenaID && (
+        <h2>ログインしてください</h2>
       )}
       <div className="Tab">
         {/* react-tab */}
@@ -61,7 +73,9 @@ function App() {
             </EntryContext.Provider>
           </TabPanel>
           <TabPanel>
-            <Hotentory HatenaID={user.HatenaID} />
+            <HotEntryContext.Provider value={{ hotentries, setHotEntries }}>
+              <Hotentory HatenaID={user.HatenaID} />
+            </HotEntryContext.Provider>
           </TabPanel>
         </Tabs>
         {/* react-tab */}
