@@ -12,7 +12,7 @@ export const Welcome = () => {
   const { entries, setEntries } = useContext(EntryContext)
   const { hotentries, setHotEntries } = useContext(HotEntryContext)
   const [inputText, setInputText] = useState('');
-  const [message, setMessage] = useState('データを学習する');
+  const [learnMessage, setLearnMessage] = useState('データを学習する');
 
   const onClick = async () => {
     if (!inputText) {
@@ -62,12 +62,12 @@ export const Welcome = () => {
     }
     const request = new LearnRequest();
     request.setHatenaId(inputText);
-    setMessage("学習中...")
+    setLearnMessage("学習中...")
 
     const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
     client.learn(request, {}, (err, ret) => {
       if (err || ret === null) {
-        setMessage("エラー");
+        setLearnMessage("エラー")
         throw err;
       }
       if (ret.getLearned()) {
@@ -75,7 +75,7 @@ export const Welcome = () => {
       } else {
         console.log("学習に失敗しました！");
       }
-      setMessage("データを学習する");
+      setLearnMessage("データを学習する")
     });
   };
 
