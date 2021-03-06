@@ -17,6 +17,7 @@ export const Wordcloud = () => {
             const client = new WordcloudClient(`http://${window.location.hostname}:8080/wordcloud`, {}, {});
             client.createWordCloud(request, {}, (err, ret) => {
                 if (err || ret === null) {
+                    setMessage("エラーが発生")
                     throw err;
                 }
                 const wordcloud = window.atob(ret.getWordcloud_asB64());

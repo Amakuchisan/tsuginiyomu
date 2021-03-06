@@ -37,6 +37,7 @@ export const Welcome = () => {
     const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
     client.learn(request, {}, (err, ret) => {
       if (err || ret === null) {
+        setMessage("エラーが発生")
         throw err;
       }
       if (ret.getLearned()) {

@@ -24,6 +24,7 @@ export const Atodeyomu = (props: any) => {
             const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
             client.getSuggestion(request, {}, (err, ret) => {
                 if (err || ret === null) {
+                    setIsLoading("エラーが発生")
                     throw err;
                 }
                 const suggestions = ret.getSuggestionsList();
