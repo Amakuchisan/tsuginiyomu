@@ -22,7 +22,7 @@ class Bookmark:
         entries = self.get_user_entries(hatena_id)
         url_list = article.create(hatena_id, [entry['link'] for entry in entries]) # DBに新規に登録したURLを取得
         for url in url_list:
-            html = wd.get_body_from_URL(url)
+            title, html = wd.get_body_from_URL(url)
             if not html :
                 continue # htmlが空だったら、次のurlへ
 
@@ -30,8 +30,6 @@ class Bookmark:
             # 登場回数が多い順に2件取得
             c = collections.Counter(noun)
             dic = dict(c.most_common(2)) # list -> dict
-            # 記事のタイトルを取得
-            title = self.get_title_by_url(url, entries)
             # 登場回数が多い順に3件取得
             title_noun = dict(collections.Counter(wd.get_noun(title)).most_common(3))
 
@@ -43,11 +41,6 @@ class Bookmark:
             d = dict(collections.Counter(title_noun)+collections.Counter(d))
             articles.append(article.createArticleModel(url, d))
         return word.create(articles)
-
-    def get_title_by_url(self, url, entries):
-        # タイトルが見つからなければ、直接URLにアクセスして取得する
-        values = [x['title'] for x in entries if 'link' in x and 'title' in x and x['link'] == url]
-        return values[0] if values else wd.get_title_by_url(url)
 
     def count_bookmark_page(self, hatena_id: str, option: str = '') -> int:
         data = requests.get(
