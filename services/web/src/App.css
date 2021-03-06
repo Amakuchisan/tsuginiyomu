@@ -8,6 +8,14 @@
   font-size: calc(3vmin);
 }
 
+.Category {
+  max-width: 50vmin;
+}
+
+.Learner-button {
+  margin-bottom: 10px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
