@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import Select from 'react-select';
+import { HotEntryContext } from '../App';
 import { GetHotentrySuggestionRequest, Suggestion } from "../pb/learner/learner_pb";
 import { LearnerClient } from "../pb/learner/LearnerServiceClientPb";
-import { isOptionalTypeNode } from 'typescript';
 
 export const Hotentory = (props: any) => {
 
     const [selectedOption, setSelectedOption] = useState({ value: 'all', label: '総合' });
-    const [entries, setEntries] = useState({} as Suggestion[]);
+    const { hotentries, setHotEntries } = useContext(HotEntryContext);
     const [message, setMessage] = useState("カテゴリを選んでください");
 
     const options = [
@@ -45,7 +45,7 @@ export const Hotentory = (props: any) => {
                     throw err;
                 }
                 const suggestions = ret.getSuggestionsList();
-                setEntries(suggestions.sort(compare));
+                setHotEntries(suggestions.sort(compare));
                 setMessage("カテゴリを選んでください");
             });
         }
@@ -58,7 +58,7 @@ export const Hotentory = (props: any) => {
     }
 
     return (
-        <header className="wordcloud">
+        <header className="Hotentry">
             <h2>ホットエントリーから次に読む記事を探す</h2>
             <h3>{message}</h3>
 
@@ -70,9 +70,9 @@ export const Hotentory = (props: any) => {
                 />
             </div>
 
-            { entries.length > 0 && (
+            { hotentries.length > 0 && (
                 <ul>
-                    {entries.map(entry => (
+                    {hotentries.map(entry => (
                         <li key={entry.getTitle()}>
                             <a href={entry.getLink()}>
                                 {entry.getTitle()}
