@@ -3,7 +3,8 @@ import { UserContext } from '../App';
 import { EntryContext } from '../App';
 import { CreateUserRequest } from "../pb/manager/manager_pb";
 import { ManagerClient } from "../pb/manager/ManagerServiceClientPb";
-import { Suggestion } from "../pb/learner/learner_pb";
+import { Suggestion, LearnRequest } from "../pb/learner/learner_pb";
+import { LearnerClient } from "../pb/learner/LearnerServiceClientPb";
 
 export const Welcome = () => {
   const { user, setUser } = useContext(UserContext)
@@ -24,6 +25,26 @@ export const Welcome = () => {
     });
   };
 
+  const onClickLearn = () => {
+    if (!user.HatenaID) {
+      return
+    }
+    const request = new LearnRequest();
+    request.setHatenaId(inputText);
+
+    const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
+    client.learn(request, {}, (err, ret) => {
+      if (err || ret === null) {
+        throw err;
+      }
+      if (ret.getLearned()) {
+        console.log("学習が終わりました！")
+      } else {
+        console.log("学習に失敗しました！")
+      }
+    });
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
@@ -39,6 +60,11 @@ export const Welcome = () => {
         />
 
         <button onClick={onClick}>Send</button>
+        {user.HatenaID && (
+          <div className="Learner-button">
+            <button onClick={onClickLearn}>データを学習する</button>
+          </div>
+        )}
       </div>
     </header>
   )
