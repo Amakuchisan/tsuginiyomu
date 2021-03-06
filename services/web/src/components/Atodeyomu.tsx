@@ -19,17 +19,17 @@ export const Atodeyomu = (props: any) => {
         const request = new GetSuggestionRequest();
         if (props.HatenaID) {
             request.setHatenaId(props.HatenaID);
-            setIsLoading("検索中...")
+            setIsLoading("検索中...");
 
             const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
             client.getSuggestion(request, {}, (err, ret) => {
                 if (err || ret === null) {
-                    setIsLoading("エラーが発生")
+                    setIsLoading("エラーが発生");
                     throw err;
                 }
                 const suggestions = ret.getSuggestionsList();
-                setEntries(suggestions.sort(compare))
-                setIsLoading("探す")
+                setEntries(suggestions.sort(compare));
+                setIsLoading("探す");
             });
         }
     }
@@ -43,7 +43,7 @@ export const Atodeyomu = (props: any) => {
             <h2>あとで読むから次に読む記事を探す</h2>
             <button onClick={onClick}>{isLoading}</button>
             { entries.length > 0 && (
-                <ul>
+                <ol>
                     {entries.map(entry => (
                         <li key={entry.getTitle()}>
                             <a href={entry.getLink()}>
@@ -51,7 +51,7 @@ export const Atodeyomu = (props: any) => {
                             </a>
                         </li>
                     ))}
-                </ul>
+                </ol>
             )}
         </header>
     )

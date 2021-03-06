@@ -71,7 +71,7 @@ export const Hotentory = (props: any) => {
             </div>
 
             { hotentries.length > 0 && (
-                <ul>
+                <ol>
                     {hotentries.map(entry => (
                         <li key={entry.getTitle()}>
                             <a href={entry.getLink()}>
@@ -79,7 +79,7 @@ export const Hotentory = (props: any) => {
                             </a> ({entry.getScore().toFixed(2)})
                         </li>
                     ))}
-                </ul>
+                </ol>
             )}
         </header>
     )

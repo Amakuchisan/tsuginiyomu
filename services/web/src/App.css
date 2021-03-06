@@ -45,8 +45,11 @@
   color: #61dafb;
 }
 
+.wordcloud p {
+  font-size: calc(2px + 2vmin);
+}
 .wordcloud img {
-  width: 80vw;
+  width: 80vmin;
 }
 
 @keyframes App-logo-spin {
