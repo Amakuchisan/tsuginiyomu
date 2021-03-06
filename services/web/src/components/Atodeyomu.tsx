@@ -43,7 +43,7 @@ export const Atodeyomu = (props: any) => {
             <h2>あとで読むから次に読む記事を探す</h2>
             <button onClick={onClick}>{isLoading}</button>
             { entries.length > 0 && (
-                <ul>
+                <ol>
                     {entries.map(entry => (
                         <li key={entry.getTitle()}>
                             <a href={entry.getLink()}>
@@ -51,7 +51,7 @@ export const Atodeyomu = (props: any) => {
                             </a>
                         </li>
                     ))}
-                </ul>
+                </ol>
             )}
         </header>
     )
