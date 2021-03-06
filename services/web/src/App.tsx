@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Atodeyomu } from './components/Atodeyomu'
-import { Hotentory } from './components/Hotentory'
+import { Hotentory } from './components/Hotentry'
 import { Welcome } from './components/Welcome'
 import { Wordcloud } from './components/Wordcloud'
 
@@ -61,7 +61,7 @@ function App() {
             </EntryContext.Provider>
           </TabPanel>
           <TabPanel>
-            <Hotentory />
+            <Hotentory HatenaID={user.HatenaID} />
           </TabPanel>
         </Tabs>
         {/* react-tab */}

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rlearner.proto\x12\x07learner\"!\n\x0cLearnRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"\x1d\n\nLearnReply\x12\x0f\n\x07learned\x18\x01 \x01(\x08\")\n\x14GetSuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"8\n\nSuggestion\x12\x0c\n\x04link\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x01\">\n\x12GetSuggestionReply\x12(\n\x0bsuggestions\x18\x01 \x03(\x0b\x32\x13.learner.Suggestion\"*\n\x15\x45xistsHatenaIDRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"&\n\x13\x45xistsHatenaIDReply\x12\x0f\n\x07\x65xisted\x18\x01 \x01(\x08\x32\xe1\x01\n\x07Learner\x12\x35\n\x05Learn\x12\x15.learner.LearnRequest\x1a\x13.learner.LearnReply\"\x00\x12M\n\rGetSuggestion\x12\x1d.learner.GetSuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12P\n\x0e\x45xistsHatenaID\x12\x1e.learner.ExistsHatenaIDRequest\x1a\x1c.learner.ExistsHatenaIDReply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\rlearner.proto\x12\x07learner\"!\n\x0cLearnRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"\x1d\n\nLearnReply\x12\x0f\n\x07learned\x18\x01 \x01(\x08\")\n\x14GetSuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"C\n\x1cGetHotentrySuggestionRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x02 \x01(\t\"8\n\nSuggestion\x12\x0c\n\x04link\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x01\">\n\x12GetSuggestionReply\x12(\n\x0bsuggestions\x18\x01 \x03(\x0b\x32\x13.learner.Suggestion\"*\n\x15\x45xistsHatenaIDRequest\x12\x11\n\thatena_id\x18\x01 \x01(\t\"&\n\x13\x45xistsHatenaIDReply\x12\x0f\n\x07\x65xisted\x18\x01 \x01(\x08\x32\xc0\x02\n\x07Learner\x12\x35\n\x05Learn\x12\x15.learner.LearnRequest\x1a\x13.learner.LearnReply\"\x00\x12M\n\rGetSuggestion\x12\x1d.learner.GetSuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12]\n\x15GetHotentrySuggestion\x12%.learner.GetHotentrySuggestionRequest\x1a\x1b.learner.GetSuggestionReply\"\x00\x12P\n\x0e\x45xistsHatenaID\x12\x1e.learner.ExistsHatenaIDRequest\x1a\x1c.learner.ExistsHatenaIDReply\"\x00\x62\x06proto3'
 )
 
 
@@ -121,6 +121,45 @@ _GETSUGGESTIONREQUEST = _descriptor.Descriptor(
 )
 
 
+_GETHOTENTRYSUGGESTIONREQUEST = _descriptor.Descriptor(
+  name='GetHotentrySuggestionRequest',
+  full_name='learner.GetHotentrySuggestionRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='hatena_id', full_name='learner.GetHotentrySuggestionRequest.hatena_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='category', full_name='learner.GetHotentrySuggestionRequest.category', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=135,
+  serialized_end=202,
+)
+
+
 _SUGGESTION = _descriptor.Descriptor(
   name='Suggestion',
   full_name='learner.Suggestion',
@@ -162,8 +201,8 @@ _SUGGESTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=135,
-  serialized_end=191,
+  serialized_start=204,
+  serialized_end=260,
 )
 
 
@@ -194,8 +233,8 @@ _GETSUGGESTIONREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=193,
-  serialized_end=255,
+  serialized_start=262,
+  serialized_end=324,
 )
 
 
@@ -226,8 +265,8 @@ _EXISTSHATENAIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=257,
-  serialized_end=299,
+  serialized_start=326,
+  serialized_end=368,
 )
 
 
@@ -258,14 +297,15 @@ _EXISTSHATENAIDREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=301,
-  serialized_end=339,
+  serialized_start=370,
+  serialized_end=408,
 )
 
 _GETSUGGESTIONREPLY.fields_by_name['suggestions'].message_type = _SUGGESTION
 DESCRIPTOR.message_types_by_name['LearnRequest'] = _LEARNREQUEST
 DESCRIPTOR.message_types_by_name['LearnReply'] = _LEARNREPLY
 DESCRIPTOR.message_types_by_name['GetSuggestionRequest'] = _GETSUGGESTIONREQUEST
+DESCRIPTOR.message_types_by_name['GetHotentrySuggestionRequest'] = _GETHOTENTRYSUGGESTIONREQUEST
 DESCRIPTOR.message_types_by_name['Suggestion'] = _SUGGESTION
 DESCRIPTOR.message_types_by_name['GetSuggestionReply'] = _GETSUGGESTIONREPLY
 DESCRIPTOR.message_types_by_name['ExistsHatenaIDRequest'] = _EXISTSHATENAIDREQUEST
@@ -292,6 +332,13 @@ GetSuggestionRequest = _reflection.GeneratedProtocolMessageType('GetSuggestionRe
   # @@protoc_insertion_point(class_scope:learner.GetSuggestionRequest)
   })
 _sym_db.RegisterMessage(GetSuggestionRequest)
+
+GetHotentrySuggestionRequest = _reflection.GeneratedProtocolMessageType('GetHotentrySuggestionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETHOTENTRYSUGGESTIONREQUEST,
+  '__module__' : 'learner_pb2'
+  # @@protoc_insertion_point(class_scope:learner.GetHotentrySuggestionRequest)
+  })
+_sym_db.RegisterMessage(GetHotentrySuggestionRequest)
 
 Suggestion = _reflection.GeneratedProtocolMessageType('Suggestion', (_message.Message,), {
   'DESCRIPTOR' : _SUGGESTION,
@@ -330,8 +377,8 @@ _LEARNER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=342,
-  serialized_end=567,
+  serialized_start=411,
+  serialized_end=731,
   methods=[
   _descriptor.MethodDescriptor(
     name='Learn',
@@ -354,9 +401,19 @@ _LEARNER = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='GetHotentrySuggestion',
+    full_name='learner.Learner.GetHotentrySuggestion',
+    index=2,
+    containing_service=None,
+    input_type=_GETHOTENTRYSUGGESTIONREQUEST,
+    output_type=_GETSUGGESTIONREPLY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='ExistsHatenaID',
     full_name='learner.Learner.ExistsHatenaID',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=_EXISTSHATENAIDREQUEST,
     output_type=_EXISTSHATENAIDREPLY,
