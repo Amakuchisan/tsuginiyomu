@@ -57,21 +57,21 @@ export const Welcome = () => {
 
   return (
     <header className="App-header">
-      <div>
+      <div className="user_input">
         はてなID :&nbsp;
           <input
           type="text"
           value={inputText}
           onChange={onChange}
         />
-
         <button onClick={onClick}>Send</button>
-        {user.HatenaID && (
-          <div className="Learner-button">
-            <button onClick={onClickLearn}>{message}</button>
-          </div>
-        )}
       </div>
+
+      {user.HatenaID && (
+        <div className="Learner-button">
+          <button onClick={onClickLearn}>{learnMessage}</button>
+        </div>
+      )}
     </header>
   )
 }
