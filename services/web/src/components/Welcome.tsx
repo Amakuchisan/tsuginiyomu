@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+
 import { UserContext } from '../App';
 import { EntryContext, HotEntryContext } from '../App';
 import { CreateUserRequest } from "../pb/manager/manager_pb";
@@ -13,7 +14,16 @@ export const Welcome = () => {
   const [inputText, setInputText] = useState('');
   const [message, setMessage] = useState('データを学習する');
 
-  const onClick = () => {
+  const onClick = async () => {
+    if (!inputText) {
+      return;
+    }
+    const isExisted = await exist_user();
+    if (!isExisted) {
+      // 存在しないユーザは登録しない
+      setInputText('');
+      return;
+    }
     const request = new CreateUserRequest();
     request.setHatenaid(inputText);
 
@@ -23,10 +33,28 @@ export const Welcome = () => {
         throw err;
       }
       setUser({ ...user, HatenaID: ret.getHatenaid(), wordcloud: window.atob(ret.getWordcloud_asB64()) });
-      setEntries({} as Suggestion[])
-      setHotEntries({} as Suggestion[])
+      setEntries({} as Suggestion[]);
+      setHotEntries({} as Suggestion[]);
     });
   };
+
+  const exist_user = () => {
+    return new Promise(resolve => {
+      const request = new LearnRequest();
+      request.setHatenaId(inputText);
+      const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
+      client.existsHatenaID(request, {}, (err, ret) => {
+        if (err || ret === null) {
+          alert("サーバエラーが発生");
+          throw err;
+        }
+        if (!ret.getExisted()) {
+          alert("存在しないはてなIDです");
+        }
+        resolve(ret.getExisted());
+      });
+    });
+  }
 
   const onClickLearn = () => {
     if (!user.HatenaID) {
@@ -39,15 +67,15 @@ export const Welcome = () => {
     const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
     client.learn(request, {}, (err, ret) => {
       if (err || ret === null) {
-        setMessage("エラー")
+        setMessage("エラー");
         throw err;
       }
       if (ret.getLearned()) {
-        console.log("学習が終わりました！")
+        console.log("学習が終わりました！");
       } else {
-        console.log("学習に失敗しました！")
+        console.log("学習に失敗しました！");
       }
-      setMessage("データを学習する")
+      setMessage("データを学習する");
     });
   };
 
