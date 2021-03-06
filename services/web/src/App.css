@@ -8,6 +8,14 @@
   font-size: calc(3vmin);
 }
 
+.Category {
+  max-width: 50vmin;
+}
+
+.Learner-button {
+  margin-bottom: 10px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -25,16 +33,23 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-  font-size: calc(10px + 2vmin);
+  /* font-size: calc(10px + 2vmin); */
   color: white;
+}
+
+.user_input {
+  font-size: calc(10px + 2vmin);
 }
 
 .App-link {
   color: #61dafb;
 }
 
+.wordcloud p {
+  font-size: calc(2px + 2vmin);
+}
 .wordcloud img {
-  width: 80vw;
+  width: 80vmin;
 }
 
 @keyframes App-logo-spin {
