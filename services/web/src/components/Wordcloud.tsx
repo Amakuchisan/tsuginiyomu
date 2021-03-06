@@ -31,10 +31,11 @@ export const Wordcloud = () => {
     };
 
     return (
-        <header className="wordcloud">
+        <div className="wordcloud">
             { user.HatenaID && (
                 <div>
-                    <h2>{user.HatenaID}さんのワードクラウドを作成する</h2>
+                    <h2>ワードクラウドを作成する</h2>
+                    <p>{user.HatenaID}さんの過去のブックマークデータからワード・クラウドを作成します</p>
                     <button onClick={onClick}>{message}</button>
                     {user.wordcloud && (
                         <div className="image">
@@ -43,6 +44,6 @@ export const Wordcloud = () => {
                     )}
                 </div>
             )}
-        </header>
+        </div>
     )
 }
