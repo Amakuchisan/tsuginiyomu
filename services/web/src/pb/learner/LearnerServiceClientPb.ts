@@ -115,46 +115,6 @@ export class LearnerClient {
     this.methodInfoGetSuggestion);
   }
 
-  methodInfoGetHotentrySuggestion = new grpcWeb.AbstractClientBase.MethodInfo(
-    learner_pb.GetSuggestionReply,
-    (request: learner_pb.GetHotentrySuggestionRequest) => {
-      return request.serializeBinary();
-    },
-    learner_pb.GetSuggestionReply.deserializeBinary
-  );
-
-  getHotentrySuggestion(
-    request: learner_pb.GetHotentrySuggestionRequest,
-    metadata: grpcWeb.Metadata | null): Promise<learner_pb.GetSuggestionReply>;
-
-  getHotentrySuggestion(
-    request: learner_pb.GetHotentrySuggestionRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: learner_pb.GetSuggestionReply) => void): grpcWeb.ClientReadableStream<learner_pb.GetSuggestionReply>;
-
-  getHotentrySuggestion(
-    request: learner_pb.GetHotentrySuggestionRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
-               response: learner_pb.GetSuggestionReply) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        this.hostname_ +
-          '/learner.Learner/GetHotentrySuggestion',
-        request,
-        metadata || {},
-        this.methodInfoGetHotentrySuggestion,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/learner.Learner/GetHotentrySuggestion',
-    request,
-    metadata || {},
-    this.methodInfoGetHotentrySuggestion);
-  }
-
   methodInfoExistsHatenaID = new grpcWeb.AbstractClientBase.MethodInfo(
     learner_pb.ExistsHatenaIDReply,
     (request: learner_pb.ExistsHatenaIDRequest) => {

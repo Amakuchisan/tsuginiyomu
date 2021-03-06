@@ -15,10 +15,6 @@ class Learner(learner_pb2_grpc.LearnerServicer):
         suggestions = self.bookmark.get_suggestions(request.hatena_id, "tag=あとで読む&")
         return learner_pb2.GetSuggestionReply(suggestions=suggestions)
 
-    def GetHotentrySuggestion(self, request, context):
-        suggestions = self.bookmark.get_hotentry_suggestions(request.hatena_id, request.category)
-        return learner_pb2.GetSuggestionReply(suggestions=suggestions)
-
     def ExistsHatenaID(self, request, context):
         try:
             self.bookmark.count_bookmark_page(request.hatena_id)

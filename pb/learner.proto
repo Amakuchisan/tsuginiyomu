@@ -5,7 +5,6 @@ package learner;
 service Learner {
   rpc Learn (LearnRequest) returns (LearnReply) {}
   rpc GetSuggestion (GetSuggestionRequest) returns (GetSuggestionReply) {}
-  rpc GetHotentrySuggestion (GetHotentrySuggestionRequest) returns (GetSuggestionReply) {}
   rpc ExistsHatenaID (ExistsHatenaIDRequest) returns (ExistsHatenaIDReply) {}
 }
 
@@ -20,11 +19,6 @@ message LearnReply {
 
 message GetSuggestionRequest {
   string hatena_id = 1;
-}
-
-message GetHotentrySuggestionRequest {
-  string hatena_id = 1;
-  string category = 2;
 }
 
 message Suggestion {

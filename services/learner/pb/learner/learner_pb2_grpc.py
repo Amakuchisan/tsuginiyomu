@@ -24,11 +24,6 @@ class LearnerStub(object):
                 request_serializer=learner__pb2.GetSuggestionRequest.SerializeToString,
                 response_deserializer=learner__pb2.GetSuggestionReply.FromString,
                 )
-        self.GetHotentrySuggestion = channel.unary_unary(
-                '/learner.Learner/GetHotentrySuggestion',
-                request_serializer=learner__pb2.GetHotentrySuggestionRequest.SerializeToString,
-                response_deserializer=learner__pb2.GetSuggestionReply.FromString,
-                )
         self.ExistsHatenaID = channel.unary_unary(
                 '/learner.Learner/ExistsHatenaID',
                 request_serializer=learner__pb2.ExistsHatenaIDRequest.SerializeToString,
@@ -51,12 +46,6 @@ class LearnerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetHotentrySuggestion(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def ExistsHatenaID(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -74,11 +63,6 @@ def add_LearnerServicer_to_server(servicer, server):
             'GetSuggestion': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSuggestion,
                     request_deserializer=learner__pb2.GetSuggestionRequest.FromString,
-                    response_serializer=learner__pb2.GetSuggestionReply.SerializeToString,
-            ),
-            'GetHotentrySuggestion': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetHotentrySuggestion,
-                    request_deserializer=learner__pb2.GetHotentrySuggestionRequest.FromString,
                     response_serializer=learner__pb2.GetSuggestionReply.SerializeToString,
             ),
             'ExistsHatenaID': grpc.unary_unary_rpc_method_handler(
@@ -126,23 +110,6 @@ class Learner(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/learner.Learner/GetSuggestion',
             learner__pb2.GetSuggestionRequest.SerializeToString,
-            learner__pb2.GetSuggestionReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetHotentrySuggestion(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/learner.Learner/GetHotentrySuggestion',
-            learner__pb2.GetHotentrySuggestionRequest.SerializeToString,
             learner__pb2.GetSuggestionReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
