@@ -56,6 +56,28 @@ export namespace GetSuggestionRequest {
   }
 }
 
+export class GetHotentrySuggestionRequest extends jspb.Message {
+  getHatenaId(): string;
+  setHatenaId(value: string): GetHotentrySuggestionRequest;
+
+  getCategory(): string;
+  setCategory(value: string): GetHotentrySuggestionRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetHotentrySuggestionRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetHotentrySuggestionRequest): GetHotentrySuggestionRequest.AsObject;
+  static serializeBinaryToWriter(message: GetHotentrySuggestionRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetHotentrySuggestionRequest;
+  static deserializeBinaryFromReader(message: GetHotentrySuggestionRequest, reader: jspb.BinaryReader): GetHotentrySuggestionRequest;
+}
+
+export namespace GetHotentrySuggestionRequest {
+  export type AsObject = {
+    hatenaId: string,
+    category: string,
+  }
+}
+
 export class Suggestion extends jspb.Message {
   getLink(): string;
   setLink(value: string): Suggestion;

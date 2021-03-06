@@ -131,6 +131,35 @@ class Bookmark:
             data.append(self.create_suggestion_model(link=entry['link'], title=entry['title'], score=dic[entry['link']]))
         return data
 
+    def get_hotentries(self, category: str) -> list[feedparser.util.FeedParserDict]:
+        data = requests.get(
+            'https://b.hatena.ne.jp/hotentry/{}.rss'.format(category)
+        )
+        d = feedparser.parse(data.text)
+        return d['entries']
+
+    def get_hotentry_suggestions(self, hatena_id: str, category: str) -> list[dict[str, str]]:
+        if hatena_id == "":
+            return ""
+        dic = {}
+        data = []
+
+        entries = self.get_hotentries(category)
+
+        w = word.find_word(hatena_id)
+        if len(w) == 0:
+            # 検索結果が0だったら何もしない
+            return [self.create_suggestion_model(link="", title="学習を行ってください", score=0)]
+        for entry in entries:
+            noun = wd.get_noun(entry['title'])
+            dic.setdefault(entry['link'], 0)
+            for n in noun:
+                if n in w:
+                    dic[entry['link']] += w[n]
+
+            data.append(self.create_suggestion_model(link=entry['link'], title=entry['title'], score=dic[entry['link']]))
+        return data
+
     def create_suggestion_model(self, link: str, title: str, score: str) -> learner_pb2.Suggestion():
         suggestion = learner_pb2.Suggestion()
         suggestion.link = link
