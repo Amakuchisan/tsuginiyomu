@@ -16,14 +16,6 @@ docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-go \
     --go_opt=paths=source_relative \
     manager.proto
 
-mkdir -p go/evaluator
-
-docker run -v "$(pwd):/pb" -w /pb --rm tsuginiyomu-protoc-go \
-  protoc \
-    --go_out=plugins=grpc:go/evaluator \
-    --go_opt=paths=source_relative \
-    evaluator.proto
-
 mkdir -p python/learner
 mkdir -p python/manager
 mkdir -p python/wordcloud
@@ -73,10 +65,7 @@ sed -i -e "s/import wordcloud_pb2 as wordcloud__pb2/from . import wordcloud_pb2 
 
 mkdir -p ../services/manager/pb
 mkdir -p ../services/learner/pb
-mkdir -p ../services/evaluator/pb
 mkdir -p ../services/wordcloud/pb
-cp -r ./go/manager ../services/evaluator/pb
-cp -r ./go/evaluator ../services/evaluator/pb
 cp -r ./go/manager ../services/manager/pb
 cp -r ./js/* ../services/web/src/pb
 cp -r ./python/learner ../services/learner/pb
@@ -85,5 +74,4 @@ cp -r ./python/manager ../services/wordcloud/pb
 cp -r ./python/wordcloud ../services/wordcloud/pb
 # cp -r ./js/learner ../services/web/src/pb
 
-# protoc evaluator.proto --go_out=plugins=grpc:go/evaluator --go_opt=paths=source_relative
 # protoc manager.proto --go_out=plugins=grpc:go/manager --go_opt=paths=source_relative
