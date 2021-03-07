@@ -39,7 +39,7 @@ export const Atodeyomu = (props: any) => {
     };
 
     return (
-        <header className="wordcloud">
+        <header className="Atodeyomu">
             <h2>あとで読むから次に読む記事を探す</h2>
             <button onClick={onClick}>{isLoading}</button>
             { entries.length > 0 && (
