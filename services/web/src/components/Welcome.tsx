@@ -12,7 +12,6 @@ export const Welcome = () => {
   const { entries, setEntries } = useContext(EntryContext)
   const { hotentries, setHotEntries } = useContext(HotEntryContext)
   const [inputText, setInputText] = useState('');
-  const [learnMessage, setLearnMessage] = useState('データを学習する');
 
   const onClick = async () => {
     if (!inputText) {
@@ -56,29 +55,6 @@ export const Welcome = () => {
     });
   }
 
-  const onClickLearn = () => {
-    if (!user.HatenaID) {
-      return
-    }
-    const request = new LearnRequest();
-    request.setHatenaId(inputText);
-    setLearnMessage("学習中...")
-
-    const client = new LearnerClient(`http://${window.location.hostname}:8080/learner`, {}, {});
-    client.learn(request, {}, (err, ret) => {
-      if (err || ret === null) {
-        setLearnMessage("エラー")
-        throw err;
-      }
-      if (ret.getLearned()) {
-        console.log("学習が終わりました！");
-      } else {
-        console.log("学習に失敗しました！");
-      }
-      setLearnMessage("データを学習する")
-    });
-  };
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
@@ -94,12 +70,6 @@ export const Welcome = () => {
         />
         <button onClick={onClick}>Send</button>
       </div>
-
-      {user.HatenaID && (
-        <div className="Learner-button">
-          <button onClick={onClickLearn}>{learnMessage}</button>
-        </div>
-      )}
     </header>
   )
 }
