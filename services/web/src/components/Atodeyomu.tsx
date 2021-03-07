@@ -45,7 +45,7 @@ export const Atodeyomu = (props: any) => {
             { entries.length > 0 && (
                 <ol>
                     {entries.map(entry => (
-                        <li key={entry.getTitle()}>
+                        <li key={entry.getLink()}>
                             <a href={entry.getLink()}>
                                 {entry.getTitle()}
                             </a>

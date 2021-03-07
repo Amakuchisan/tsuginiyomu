@@ -65,8 +65,9 @@ def get_body_from_URL(url: str) -> tuple[str, str]:
         html = soup.get_text()
     else:
         html = '\n'.join([c.get_text() for c in soup.find_all('article')])
-    return soup.title.string, strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
-
+    if soup.title:
+        return soup.title.string, strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
+    return "", strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
 
 def allow_robots_txt(url: str) -> bool:
     rp = RobotFileParser()
