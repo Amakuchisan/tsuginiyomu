@@ -12,8 +12,23 @@
   max-width: 50vmin;
 }
 
-.Learner-button {
-  margin-bottom: 10px;
+.message {
+  display:inline;
+}
+.Learn button {
+  margin-left: 10px;
+}
+
+.Learn button:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 4px 4px;
+  padding: 1px;
+  background: url("./hatenabookmark-logomark.svg") no-repeat;
+  background-size: contain;
+  vertical-align: middle;
 }
 
 .App-logo {
