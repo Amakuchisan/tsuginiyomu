@@ -60,9 +60,22 @@
   color: #61dafb;
 }
 
+.Atodeyomu {
+  margin-left: 2vw;
+}
+
+.Hotentry {
+  margin-left: 2vw;
+}
+
+.wordcloud {
+  margin-left: 3vw;
+}
+
 .wordcloud p {
   font-size: calc(2px + 2vmin);
 }
+
 .wordcloud img {
   width: 80vmin;
 }
