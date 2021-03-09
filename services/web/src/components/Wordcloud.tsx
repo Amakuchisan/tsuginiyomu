@@ -39,7 +39,7 @@ export const Wordcloud = () => {
                     <button onClick={onClick}>{message}</button>
                     {user.wordcloud && (
                         <div className="image">
-                            <img src={`data:;image/png;base64,${user.wordcloud}`} alt="wordcloud" />
+                            <img src={`data:image/png;base64,${user.wordcloud}`} alt="wordcloud" />
                         </div>
                     )}
                 </div>
