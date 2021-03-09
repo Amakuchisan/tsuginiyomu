@@ -50,11 +50,14 @@ def strip_symbol(html: str) -> str:
 
 def get_body_from_URL(url: str) -> tuple[str, str]:
     err_code = [500, 502, 503]
+    headers = {
+        'User-Agent': 'tsuginiyomu (github.com/Amakuchisan)'
+    }
     if not allow_robots_txt(url):
         print(url, "not allowed to access")
         return '', ''
     try:
-        res = get_retry(url, 3, err_code)
+        res = requests.get(url, headers=headers, verify=False)
         if res.status_code in err_code:
             return '', ''
     except Exception as e:
@@ -79,16 +82,3 @@ def allow_robots_txt(url: str) -> bool:
     except Exception as e:
         print(url, e)
     return False
-
-
-def get_retry(url, retry_times, errs):
-    headers = {
-        'User-Agent': 'tsuginiyomu (github.com/Amakuchisan)'
-    }
-    for t in range(retry_times + 1):
-        r = requests.get(url, headers=headers, verify=False)
-        if t < retry_times:
-            if r.status_code in errs:
-                sleep(2)
-                continue
-        return r
