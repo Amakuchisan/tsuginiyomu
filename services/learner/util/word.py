@@ -47,30 +47,31 @@ def strip_symbol(html: str) -> str:
     p = r"[!-/:-@[-`{-~ʹ·]"
     return regex.sub(p, ' ', html)
 
-
-def get_body_from_URL(url: str) -> tuple[str, str]:
-    err_code = [500, 502, 503]
+# return server_error, html
+def get_body_from_URL(url: str) -> tuple[bool, str]:
+    client_err_code = [400, 403, 404]
+    server_err_code = [500, 502, 503]
     headers = {
         'User-Agent': 'tsuginiyomu (github.com/Amakuchisan)'
     }
     if not allow_robots_txt(url):
         print(url, "not allowed to access")
-        return '', ''
+        return False, ''
     try:
         res = requests.get(url, headers=headers, verify=False)
-        if res.status_code in err_code:
-            return '', ''
+        if res.status_code in client_err_code:
+            return False, ''
+        if res.status_code in server_err_code:
+            return True, ''
     except Exception as e:
         print(url, e)
-        return '', ''
+        return True, ''
     soup = BeautifulSoup(res.content, 'html.parser')
     if soup.find('article') is None:
         html = soup.get_text()
     else:
         html = '\n'.join([c.get_text() for c in soup.find_all('article')])
-    if soup.title:
-        return soup.title.string, strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
-    return "", strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
+    return False, strip_symbol(strip_tags(strip_url(neologdn.normalize(html))))
 
 def allow_robots_txt(url: str) -> bool:
     rp = RobotFileParser()
