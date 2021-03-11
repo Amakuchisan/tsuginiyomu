@@ -71,14 +71,15 @@ const App = () => {
     });
   };
 
+  const initEntries = () => {
+    setEntries({} as Suggestion[]);
+    setHotEntries({} as Suggestion[]);
+  }
+
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
-        <EntryContext.Provider value={{ entries, setEntries }}>
-          <HotEntryContext.Provider value={{ hotentries, setHotEntries }}>
-            <Welcome />
-          </HotEntryContext.Provider>
-        </EntryContext.Provider>
+        <Welcome initEntries={initEntries}/>
       </UserContext.Provider>
       {user.HatenaID && (
         <div className="Learn">

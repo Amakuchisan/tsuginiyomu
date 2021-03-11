@@ -1,16 +1,13 @@
 import React, { useContext, useState } from 'react';
 
 import { UserContext } from '../App';
-import { EntryContext, HotEntryContext } from '../App';
 import { CreateUserRequest } from "../pb/manager/manager_pb";
 import { ManagerClient } from "../pb/manager/ManagerServiceClientPb";
-import { Suggestion, LearnRequest } from "../pb/learner/learner_pb";
+import { LearnRequest } from "../pb/learner/learner_pb";
 import { LearnerClient } from "../pb/learner/LearnerServiceClientPb";
 
-export const Welcome = () => {
+export const Welcome = (props: any) => {
   const { user, setUser } = useContext(UserContext)
-  const { entries, setEntries } = useContext(EntryContext)
-  const { hotentries, setHotEntries } = useContext(HotEntryContext)
   const [inputText, setInputText] = useState('');
 
   const onClick = async () => {
@@ -32,8 +29,7 @@ export const Welcome = () => {
         throw err;
       }
       setUser({ ...user, HatenaID: ret.getHatenaid(), wordcloud: window.atob(ret.getWordcloud_asB64()) });
-      setEntries({} as Suggestion[]);
-      setHotEntries({} as Suggestion[]);
+      props.initEntries();
     });
   };
 
